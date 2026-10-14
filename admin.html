@@ -679,7 +679,26 @@ formPaciente.addEventListener("submit", async e => {
       }
     );
 
-    if (error || !data?.success || !data?.actionLink) {
+    
+if (error || !data?.success || !data?.actionLink) {
+  let detalhe = data?.error;
+
+  if (error?.context && typeof error.context.json === "function") {
+    try {
+      const resposta = await error.context.json();
+      detalhe = resposta?.error || resposta?.message || detalhe;
+    } catch (e) {
+      console.error("Não foi possível ler o erro retornado pela função.");
+    }
+  }
+
+  console.error("Erro ao criar acesso:", error, data);
+  mensagem.textContent =
+    detalhe || `Falha ao criar acesso. ${error?.message || "Consulte os logs da função."}`;
+
+  return;
+}
+
       console.error("Erro ao criar acesso:", error, data);
 
       mensagem.textContent = data?.error ||
