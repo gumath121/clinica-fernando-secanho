@@ -1,0 +1,206 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Definir senha | Clínica Fernando José Secanho</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: #f2f5f9;
+      color: #19324d;
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 430px;
+      padding: 32px;
+      border-radius: 16px;
+      background: white;
+      box-shadow: 0 8px 30px #19324d18;
+    }
+
+    h1 { margin-top: 0; font-size: 25px; }
+    p { line-height: 1.5; color: #526579; }
+
+    label {
+      display: block;
+      margin: 18px 0 7px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccd5df;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #087fc1;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled { opacity: .6; cursor: wait; }
+    #mensagem { margin-top: 16px; overflow-wrap: anywhere; }
+    .erro { color: #b42318; }
+    .sucesso { color: #18794e; }
+    .pequeno { font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Crie sua senha</h1>
+    <p>Defina uma senha para acessar o portal de exames da clínica.</p>
+
+    <form id="formSenha">
+      <label for="senha">Nova senha</label>
+      <input id="senha" type="password" minlength="8"
+        autocomplete="new-password" required
+        placeholder="Mínimo de 8 caracteres">
+
+      <label for="confirmacao">Confirme a nova senha</label>
+      <input id="confirmacao" type="password" minlength="8"
+        autocomplete="new-password" required
+        placeholder="Digite a senha novamente">
+
+      <button id="botao" type="submit">Salvar nova senha</button>
+    </form>
+
+    <p id="mensagem" role="status" aria-live="polite"></p>
+    <p class="pequeno">
+      Se o link não funcionar, solicite à equipe da clínica um novo link de acesso.
+    </p>
+  </main>
+
+  <script type="module">
+    import { createClient } from
+      "https://esm.sh/@supabase/supabase-js@2";
+
+    const SUPABASE_URL = "https://gvmoruslfkbtpsmnbqlu.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_13EfTkH1D2I9WaDvShy6zg_d5a_KYhu";
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const form = document.getElementById("formSenha");
+    const senha = document.getElementById("senha");
+    const confirmacao = document.getElementById("confirmacao");
+    const botao = document.getElementById("botao");
+    const mensagem = document.getElementById("mensagem");
+
+    function mostrar(texto, tipo = "") {
+      mensagem.textContent = texto;
+      mensagem.className = tipo;
+    }
+
+    async function prepararRecuperacao() {
+      const hash = window.location.hash.slice(1);
+      const parametros = new URLSearchParams(hash);
+      const erroUrl = parametros.get("error_description");
+
+      if (erroUrl) {
+        mostrar("O link não é válido ou expirou. Solicite um novo link à clínica.", "erro");
+        botao.disabled = true;
+        return;
+      }
+
+      const accessToken = parametros.get("access_token");
+      const refreshToken = parametros.get("refresh_token");
+      const tipo = parametros.get("type");
+
+      if (accessToken && refreshToken && tipo === "recovery") {
+        const { error } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken
+        });
+
+        if (error) {
+          mostrar("Não foi possível validar o link. Solicite um novo acesso à clínica.", "erro");
+          botao.disabled = true;
+          return;
+        }
+
+        history.replaceState(null, "", window.location.pathname);
+        mostrar("Link validado. Você já pode criar sua senha.");
+        return;
+      }
+
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error || !data.session) {
+        mostrar("Abra o link de recuperação mais recente enviado pela clínica.", "erro");
+        botao.disabled = true;
+        return;
+      }
+
+      mostrar("Sessão de recuperação encontrada. Você já pode criar sua senha.");
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (senha.value.length < 8) {
+        mostrar("A senha deve ter pelo menos 8 caracteres.", "erro");
+        return;
+      }
+
+      if (senha.value !== confirmacao.value) {
+        mostrar("As senhas não são iguais.", "erro");
+        return;
+      }
+
+      botao.disabled = true;
+      mostrar("Salvando sua senha...");
+
+      try {
+        const { data: sessionData, error: sessionError } =
+          await supabase.auth.getSession();
+
+        if (sessionError || !sessionData.session) {
+          mostrar("Sua sessão expirou. Solicite um novo link à clínica.", "erro");
+          return;
+        }
+
+        const { error } = await supabase.auth.updateUser({
+          password: senha.value
+        });
+
+        if (error) {
+          mostrar("Não foi possível salvar a senha: " + error.message, "erro");
+          return;
+        }
+
+        await supabase.auth.signOut();
+        mostrar("Senha criada com sucesso! Você será encaminhado ao login.", "sucesso");
+
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 1800);
+      } catch {
+        mostrar("Ocorreu um erro inesperado. Solicite ajuda à clínica.", "erro");
+      } finally {
+        botao.disabled = false;
+      }
+    });
+
+    prepararRecuperacao();
+  </script>
+</body>
+</html>
+```
