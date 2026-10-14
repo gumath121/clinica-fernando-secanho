@@ -5,151 +5,61 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Painel Administrativo | Clínica Fernando José Secanho</title>
-
 <style>
 :root {
-  --navy: #102b49;
-  --blue: #087fc1;
-  --bg: #f2f5f9;
-  --text: #24364b;
-  --muted: #68788a;
-  --border: #dce4ec;
-  --green: #18794e;
-  --red: #b42318;
+  --navy:#102b49; --blue:#087fc1; --bg:#f2f5f9;
+  --text:#24364b; --muted:#68788a; --border:#dce4ec;
+  --green:#18794e; --red:#b42318;
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-header {
-  background: var(--navy);
-  color: white;
-  padding: 22px 18px;
-}
-.header-inner, main {
-  max-width: 1050px;
-  margin: auto;
-}
-header h1 { margin: 0 0 7px; font-size: 22px; }
-header p { margin: 0; opacity: .85; }
-.header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-main { padding: 24px 16px 50px; }
-.card {
-  background: white;
-  padding: 22px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  margin-bottom: 20px;
-  box-shadow: 0 3px 12px #122b4908;
-}
-h2 { margin-top: 0; font-size: 20px; }
-label {
-  display: block;
-  margin: 14px 0 6px;
-  font-weight: bold;
-  font-size: 14px;
-}
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #bcc9d6;
-  border-radius: 7px;
-  font-size: 16px;
-  font-family: inherit;
-}
-textarea { min-height: 90px; resize: vertical; }
-button {
-  border: 0;
-  border-radius: 7px;
-  padding: 12px 16px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 14px;
-}
-button:disabled { opacity: .6; cursor: wait; }
-.primary { background: var(--blue); color: white; }
-.secondary {
-  background: white;
-  color: var(--navy);
-  border: 1px solid var(--border);
-}
-.success { background: var(--green); color: white; }
-.danger {
-  background: white;
-  color: var(--red);
-  border: 1px solid #e6b8b5;
-}
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 18px;
-}
-#status, #mensagem, #statusExames {
-  line-height: 1.5;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-.muted { color: var(--muted); font-size: 14px; line-height: 1.5; }
-.table-wrap { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; min-width: 480px; }
-th, td {
-  padding: 12px 10px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-  font-size: 14px;
-}
-th { background: #f7f9fc; }
-.patient-link {
-  color: var(--blue);
-  background: transparent;
-  padding: 4px 0;
-  text-align: left;
-  text-decoration: underline;
-  font-size: 14px;
-}
-.detail-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-}
-.detail-item {
-  padding: 14px;
-  background: #f7f9fc;
-  border-radius: 8px;
-  overflow-wrap: anywhere;
-}
-.detail-label { color: var(--muted); font-size: 12px; margin-bottom: 7px; }
-.detail-value { font-weight: bold; line-height: 1.5; }
-.exam-item {
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  padding: 16px;
-  margin-top: 12px;
-  overflow-wrap: anywhere;
-}
-.exam-item h3 { font-size: 16px; margin: 0 0 8px; }
-.exam-item p { font-size: 14px; line-height: 1.5; margin: 7px 0; }
-.exam-status { font-weight: bold; font-size: 13px; }
-.status-publicado { color: var(--green); }
-.status-rascunho { color: var(--muted); }
-[hidden] { display: none !important; }
-@media (max-width: 600px) {
-  .header-row { align-items: flex-start; flex-direction: column; }
-  .card { padding: 17px; }
-  .detail-grid { grid-template-columns: 1fr; }
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{background:var(--navy);color:white;padding:22px 18px}
+.header-inner,main{max-width:1100px;margin:auto}
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:16px}
+header h1{margin:0 0 7px;font-size:22px}
+header p{margin:0;opacity:.85}
+main{padding:24px 16px 50px}
+.card{background:white;padding:22px;border:1px solid var(--border);border-radius:12px;margin-bottom:20px;box-shadow:0 3px 12px #122b4908}
+h2{margin-top:0;font-size:20px}
+h3{font-size:16px}
+label{display:block;margin:14px 0 6px;font-weight:bold;font-size:14px}
+input,textarea{width:100%;padding:12px;border:1px solid #bcc9d6;border-radius:7px;font-size:16px;font-family:inherit}
+textarea{min-height:90px;resize:vertical}
+button{border:0;border-radius:7px;padding:11px 14px;cursor:pointer;font-weight:bold;font-size:14px}
+button:disabled{opacity:.6;cursor:wait}
+.primary{background:var(--blue);color:white}
+.secondary{background:white;color:var(--navy);border:1px solid var(--border)}
+.success{background:var(--green);color:white}
+.danger{background:white;color:var(--red);border:1px solid #e6b8b5}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+#status,#mensagem,#statusExames{line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.muted{color:var(--muted);font-size:14px;line-height:1.5}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:650px}
+th,td{padding:11px 9px;text-align:left;border-bottom:1px solid var(--border);font-size:14px;vertical-align:middle}
+th{background:#f7f9fc}
+.patient-link{color:var(--blue);background:transparent;padding:4px 0;text-align:left;text-decoration:underline}
+.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.detail-item{padding:14px;background:#f7f9fc;border-radius:8px;overflow-wrap:anywhere}
+.detail-label{color:var(--muted);font-size:12px;margin-bottom:7px}
+.detail-value{font-weight:bold;line-height:1.5}
+.exam-item{border:1px solid var(--border);border-radius:9px;padding:16px;margin-top:12px;overflow-wrap:anywhere}
+.exam-item h3{margin:0 0 8px}
+.exam-item p{font-size:14px;line-height:1.5;margin:7px 0}
+.exam-status{font-weight:bold;font-size:13px}
+.status-publicado{color:var(--green)}
+.status-rascunho{color:var(--muted)}
+.inline-actions{display:flex;flex-wrap:wrap;gap:6px}
+.inline-actions button{padding:8px 10px}
+[hidden]{display:none!important}
+hr{border:0;border-top:1px solid var(--border);margin:24px 0}
+@media(max-width:600px){
+ .header-row{align-items:flex-start;flex-direction:column}
+ .card{padding:17px}
+ .detail-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
-
 <body>
 <header>
   <div class="header-inner header-row">
@@ -170,60 +80,42 @@ th { background: #f7f9fc; }
   <div id="painel" hidden>
     <section class="card">
       <h2>Cadastrar paciente</h2>
-      <p class="muted">
-        Cadastre o paciente e crie seu acesso ao portal.
-      </p>
-
+      <p class="muted">Cadastre o paciente e crie seu acesso ao portal.</p>
       <form id="formPaciente">
         <label for="nome">Nome completo</label>
-        <input id="nome" maxlength="150" required
-          autocomplete="off" placeholder="Nome do paciente">
+        <input id="nome" maxlength="150" required autocomplete="off" placeholder="Nome do paciente">
 
         <label for="cpf">CPF</label>
-        <input id="cpf" inputmode="numeric" maxlength="14"
-          required autocomplete="off" placeholder="000.000.000-00">
+        <input id="cpf" inputmode="numeric" maxlength="14" required autocomplete="off" placeholder="000.000.000-00">
 
         <label for="emailPaciente">E-mail do paciente</label>
-        <input id="emailPaciente" type="email" maxlength="254"
-          required autocomplete="off" placeholder="paciente@exemplo.com">
+        <input id="emailPaciente" type="email" maxlength="254" required autocomplete="off" placeholder="paciente@exemplo.com">
 
         <label for="whatsappPaciente">WhatsApp do paciente</label>
-        <input id="whatsappPaciente" type="tel" inputmode="tel"
-          required autocomplete="tel" placeholder="(15) 99999-9999">
+        <input id="whatsappPaciente" type="tel" inputmode="tel" required autocomplete="tel" placeholder="(15) 99999-9999">
 
-        <p class="muted">
-          Informe o e-mail que o paciente utilizará no portal.
-          O WhatsApp será usado para preparar o envio do link de criação de senha.
-        </p>
-
+        <p class="muted">Confira o e-mail e o telefone antes de preparar o envio do link.</p>
         <div class="actions">
-          <button class="primary" id="salvar" type="submit">
-            Cadastrar paciente e criar acesso
-          </button>
-          <button class="secondary" id="recarregar" type="button">
-            Atualizar lista
-          </button>
+          <button class="primary" id="salvar" type="submit">Cadastrar paciente e criar acesso</button>
+          <button class="secondary" id="recarregar" type="button">Atualizar lista</button>
         </div>
       </form>
-
       <p id="mensagem" role="status"></p>
       <div id="linkAcesso" class="actions" hidden></div>
     </section>
 
     <section class="card" id="secaoLista">
       <h2>Pacientes cadastrados</h2>
-      <p class="muted">Clique no nome para abrir a ficha e gerenciar os exames.</p>
-      <div class="table-wrap">
+      <p class="muted">Pesquise por nome ou CPF. Use as ações para administrar cada cadastro.</p>
+      <label for="pesquisaPaciente">Pesquisar paciente</label>
+      <input id="pesquisaPaciente" type="search" placeholder="Digite o nome ou CPF...">
+      <div class="table-wrap" style="margin-top:14px">
         <table>
           <thead>
-            <tr>
-              <th>Nome</th>
-              <th>CPF</th>
-              <th>Data do cadastro</th>
-            </tr>
+            <tr><th>Nome</th><th>CPF</th><th>Cadastro</th><th>Ações</th></tr>
           </thead>
           <tbody id="lista">
-            <tr><td colspan="3">Carregando...</td></tr>
+            <tr><td colspan="4">Carregando...</td></tr>
           </tbody>
         </table>
       </div>
@@ -232,7 +124,6 @@ th { background: #f7f9fc; }
     <section class="card" id="detalhesPaciente" hidden>
       <h2>Ficha do paciente</h2>
       <p class="muted">Dados cadastrais do paciente selecionado.</p>
-
       <div class="detail-grid">
         <div class="detail-item">
           <div class="detail-label">Nome completo</div>
@@ -247,441 +138,496 @@ th { background: #f7f9fc; }
           <div class="detail-value" id="detalheData"></div>
         </div>
       </div>
-
       <div class="actions">
-        <button class="secondary" id="voltarLista" type="button">
-          Voltar para pacientes
-        </button>
+        <button class="secondary" id="voltarLista" type="button">Voltar para pacientes</button>
+        <button class="secondary" id="editarFicha" type="button">Editar cadastro</button>
+        <button class="secondary" id="recuperarFicha" type="button">Gerar link de recuperação</button>
+        <button class="danger" id="excluirFicha" type="button">Excluir cadastro</button>
       </div>
+      <p id="mensagemFicha" role="status"></p>
+      <div id="linkRecuperacao" class="actions" hidden></div>
 
-      <hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
-
+      <hr>
       <h2>Adicionar exame</h2>
-      <p class="muted">
-        Formatos permitidos: PDF, JPG, PNG e WEBP.
-        Tamanho máximo: 15 MB. O exame começa como não publicado.
-      </p>
-
+      <p class="muted">Formatos permitidos: PDF, JPG, PNG e WEBP. Tamanho máximo: 15 MB. O exame começa como não publicado.</p>
       <form id="formExame">
         <label for="tituloExame">Título do exame</label>
-        <input id="tituloExame" maxlength="150" required
-          placeholder="Ex.: Ecocardiograma">
+        <input id="tituloExame" maxlength="150" required placeholder="Ex.: Ecocardiograma">
 
         <label for="descricaoExame">Descrição (opcional)</label>
-        <textarea id="descricaoExame" maxlength="1000"
-          placeholder="Informações complementares"></textarea>
+        <textarea id="descricaoExame" maxlength="1000" placeholder="Informações complementares"></textarea>
 
         <label for="arquivoExame">Arquivo do exame</label>
-        <input id="arquivoExame" type="file"
-          accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
-          required>
+        <input id="arquivoExame" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp" required>
 
         <div class="actions">
-          <button class="primary" id="enviarExame" type="submit">
-            Enviar exame
-          </button>
+          <button class="primary" id="enviarExame" type="submit">Enviar exame</button>
         </div>
       </form>
-
       <p id="statusExames" role="status"></p>
-
-      <hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
-
+      <hr>
       <h2>Exames cadastrados</h2>
-      <p class="muted">
-        Você pode abrir o arquivo, publicar ou retirar a publicação.
-        A autorização de acesso aos arquivos do paciente precisa estar configurada separadamente.
-      </p>
-
-      <div id="listaExames">
-        <p class="muted">Selecione um paciente para consultar os exames.</p>
-      </div>
+      <p class="muted">Abra o arquivo, publique ou retire a publicação conforme necessário.</p>
+      <div id="listaExames"><p class="muted">Selecione um paciente para consultar os exames.</p></div>
     </section>
   </div>
 </main>
 
 <script type="module">
-import { createClient } from
-  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 const SUPABASE_URL = "https://gvmoruslfkbtpsmnbqlu.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_13EfTkH1D2I9WaDvShy6zg_d5a_KYhu";
-
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_13EfTkH1D2I9WaDvShy6zg_d5a_KYhu";
 const BUCKET_EXAMES = "exames-clinica";
 const TAMANHO_MAXIMO = 15 * 1024 * 1024;
-const TIPOS_PERMITIDOS = [
-  "application/pdf",
-  "image/jpeg",
-  "image/png",
-  "image/webp"
-];
+const TIPOS_PERMITIDOS = ["application/pdf", "image/jpeg", "image/png", "image/webp"];
 
-const supabase = createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
-
-const statusEl = document.getElementById("status");
-const painel = document.getElementById("painel");
-const sair = document.getElementById("sair");
-const formPaciente = document.getElementById("formPaciente");
-const mensagem = document.getElementById("mensagem");
-const lista = document.getElementById("lista");
-const salvar = document.getElementById("salvar");
-const detalhes = document.getElementById("detalhesPaciente");
-const formExame = document.getElementById("formExame");
-const enviarExame = document.getElementById("enviarExame");
-const statusExames = document.getElementById("statusExames");
-const listaExames = document.getElementById("listaExames");
+const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const el = id => document.getElementById(id);
 
 let equipeAutorizada = false;
 let usuarioEquipeId = null;
 let pacienteSelecionado = null;
+let pacientesCache = [];
 
 function formatarCPF(valor) {
   const n = String(valor ?? "").replace(/\D/g, "").slice(0, 11);
-  return n
-    .replace(/^(\d{3})(\d)/, "$1.$2")
+  return n.replace(/^(\d{3})(\d)/, "$1.$2")
     .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
     .replace(/\.(\d{3})(\d)/, ".$1-$2");
 }
 
-document.getElementById("cpf").addEventListener("input", e => {
-  e.target.value = formatarCPF(e.target.value);
-});
+el("cpf").addEventListener("input", e => e.target.value = formatarCPF(e.target.value));
 
 function validarCPF(cpf) {
   cpf = cpf.replace(/\D/g, "");
-
   if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
-
   let soma = 0;
-  for (let i = 0; i < 9; i++) {
-    soma += Number(cpf[i]) * (10 - i);
-  }
-
+  for (let i = 0; i < 9; i++) soma += Number(cpf[i]) * (10 - i);
   let digito = (soma * 10) % 11;
   if (digito === 10) digito = 0;
   if (digito !== Number(cpf[9])) return false;
-
   soma = 0;
-  for (let i = 0; i < 10; i++) {
-    soma += Number(cpf[i]) * (11 - i);
-  }
-
+  for (let i = 0; i < 10; i++) soma += Number(cpf[i]) * (11 - i);
   digito = (soma * 10) % 11;
   if (digito === 10) digito = 0;
-
   return digito === Number(cpf[10]);
 }
 
 function formatarData(valor) {
   if (!valor) return "—";
-  const data = new Date(valor);
-  if (Number.isNaN(data.getTime())) return "—";
-  return data.toLocaleDateString("pt-BR");
+  const d = new Date(valor);
+  return Number.isNaN(d.getTime()) ? "—" : d.toLocaleDateString("pt-BR");
+}
+
+function mostrarErro(error, data) {
+  if (data?.error) return data.error;
+  return error?.message || "Ocorreu um erro inesperado.";
+}
+
+async function chamarGerenciar(body) {
+  const { data, error } = await supabase.functions.invoke("gerenciar-pacientes", { body });
+  if (error || !data?.success) {
+    throw new Error(mostrarErro(error, data));
+  }
+  return data;
+}
+
+function criarBotao(texto, classe, acao) {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.textContent = texto;
+  b.className = classe;
+  b.addEventListener("click", acao);
+  return b;
 }
 
 async function verificarAcesso() {
-  statusEl.textContent = "Verificando autenticação...";
-
+  el("status").textContent = "Verificando autenticação...";
   try {
     const { data, error } = await supabase.auth.getUser();
-
     if (error || !data.user) {
-      statusEl.textContent =
-        "Faça login pelo portal antes de acessar o painel administrativo.";
-      painel.hidden = true;
-      sair.hidden = true;
+      el("status").textContent = "Faça login pelo portal antes de acessar o painel administrativo.";
+      el("painel").hidden = true;
+      el("sair").hidden = true;
       return;
     }
 
     const { data: perfil, error: erroPerfil } = await supabase
-      .from("perfis")
-      .select("nome, tipo, ativo")
-      .eq("id", data.user.id)
-      .maybeSingle();
+      .from("perfis").select("nome,tipo,ativo").eq("id", data.user.id).maybeSingle();
 
     if (erroPerfil) {
-      console.error("Erro ao consultar perfil:", erroPerfil);
-      statusEl.textContent =
-        "Não foi possível verificar o perfil da equipe. Confira as permissões da tabela perfis no Supabase.";
+      el("status").textContent = "Não foi possível verificar o perfil da equipe. Confira as permissões da tabela perfis.";
+      console.error(erroPerfil);
       return;
     }
 
-    if (
-      !perfil ||
-      !perfil.ativo ||
-      !["medico", "secretaria"].includes(perfil.tipo)
-    ) {
-      statusEl.textContent =
-        "Acesso restrito à equipe autorizada da clínica.";
-      painel.hidden = true;
-      sair.hidden = true;
+    if (!perfil || !perfil.ativo || !["medico", "secretaria"].includes(perfil.tipo)) {
+      el("status").textContent = "Acesso restrito à equipe autorizada da clínica.";
       return;
     }
 
     equipeAutorizada = true;
     usuarioEquipeId = data.user.id;
-
-    statusEl.textContent =
-      `Bem-vindo(a), ${perfil.nome}. Perfil: ${perfil.tipo}.`;
-
-    painel.hidden = false;
-    sair.hidden = false;
-
+    el("status").textContent = `Bem-vindo(a), ${perfil.nome}. Perfil: ${perfil.tipo}.`;
+    el("painel").hidden = false;
+    el("sair").hidden = false;
     await carregarPacientes();
-  } catch (error) {
-    console.error("Erro de autenticação:", error);
-    statusEl.textContent =
-      "Não foi possível verificar o acesso. Confira a conexão e tente novamente.";
+  } catch (e) {
+    console.error(e);
+    el("status").textContent = "Não foi possível verificar o acesso. Confira a conexão e tente novamente.";
   }
 }
 
 async function carregarPacientes() {
   if (!equipeAutorizada) return;
+  el("lista").replaceChildren();
+  const tr = document.createElement("tr");
+  const td = document.createElement("td");
+  td.colSpan = 4;
+  td.textContent = "Carregando pacientes...";
+  tr.appendChild(td);
+  el("lista").appendChild(tr);
 
-  lista.replaceChildren();
-  const trCarregando = document.createElement("tr");
-  const tdCarregando = document.createElement("td");
-  tdCarregando.colSpan = 3;
-  tdCarregando.textContent = "Carregando pacientes...";
-  trCarregando.appendChild(tdCarregando);
-  lista.appendChild(trCarregando);
+  try {
+    const data = await chamarGerenciar({ acao: "listar" });
+    pacientesCache = data.pacientes || [];
+    renderizarLista();
+  } catch (e) {
+    console.error(e);
+    el("lista").replaceChildren();
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
+    cell.colSpan = 4;
+    cell.textContent = "Não foi possível carregar os pacientes: " + e.message;
+    row.appendChild(cell);
+    el("lista").appendChild(row);
+  }
+}
 
-  const { data, error } = await supabase
-    .from("pacientes")
-    .select("id, usuario_id, nome, cpf, criado_em")
-    .order("criado_em", { ascending: false })
-    .limit(200);
+function renderizarLista() {
+  const termo = el("pesquisaPaciente").value.trim().toLowerCase();
+  const filtrados = pacientesCache.filter(p =>
+    String(p.nome || "").toLowerCase().includes(termo) ||
+    String(p.cpf || "").replace(/\D/g, "").includes(termo.replace(/\D/g, "")) ||
+    formatarCPF(p.cpf).toLowerCase().includes(termo)
+  );
 
-  if (error) {
-    lista.replaceChildren();
+  el("lista").replaceChildren();
+  if (!filtrados.length) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-    td.colSpan = 3;
-    td.textContent = "Não foi possível carregar a lista.";
+    td.colSpan = 4;
+    td.textContent = pacientesCache.length ? "Nenhum paciente corresponde à pesquisa." : "Nenhum paciente cadastrado.";
     tr.appendChild(td);
-    lista.appendChild(tr);
-    mensagem.textContent =
-      "Erro ao carregar pacientes. Confira as permissões do banco.";
-    console.error(error);
+    el("lista").appendChild(tr);
     return;
   }
 
-  lista.replaceChildren();
-
-  if (!data || data.length === 0) {
-    const tr = document.createElement("tr");
-    const td = document.createElement("td");
-    td.colSpan = 3;
-    td.textContent = "Nenhum paciente cadastrado.";
-    tr.appendChild(td);
-    lista.appendChild(tr);
-    return;
-  }
-
-  for (const paciente of data) {
+  for (const p of filtrados) {
     const tr = document.createElement("tr");
     const tdNome = document.createElement("td");
     const tdCPF = document.createElement("td");
     const tdData = document.createElement("td");
-    const botaoNome = document.createElement("button");
+    const tdAcoes = document.createElement("td");
+    const nome = criarBotao(p.nome || "Sem nome", "patient-link", () => abrirFichaPaciente(p));
+    tdNome.appendChild(nome);
+    tdCPF.textContent = formatarCPF(p.cpf);
+    tdData.textContent = formatarData(p.criado_em);
 
-    botaoNome.type = "button";
-    botaoNome.className = "patient-link";
-    botaoNome.textContent = paciente.nome;
-    botaoNome.setAttribute("aria-label", "Abrir ficha do paciente");
-    botaoNome.addEventListener("click", () => abrirFichaPaciente(paciente));
-
-    tdNome.appendChild(botaoNome);
-    tdCPF.textContent = formatarCPF(paciente.cpf);
-    tdData.textContent = formatarData(paciente.criado_em);
-    tr.append(tdNome, tdCPF, tdData);
-    lista.appendChild(tr);
+    const acoes = document.createElement("div");
+    acoes.className = "inline-actions";
+    acoes.appendChild(criarBotao("Editar", "secondary", () => editarPaciente(p)));
+    acoes.appendChild(criarBotao("Recuperação", "secondary", () => gerarRecuperacao(p)));
+    acoes.appendChild(criarBotao("Excluir", "danger", () => excluirPaciente(p)));
+    tdAcoes.appendChild(acoes);
+    tr.append(tdNome, tdCPF, tdData, tdAcoes);
+    el("lista").appendChild(tr);
   }
 }
+
+el("pesquisaPaciente").addEventListener("input", renderizarLista);
 
 async function abrirFichaPaciente(paciente) {
   if (!equipeAutorizada || !paciente) return;
-
   pacienteSelecionado = paciente;
-  document.getElementById("detalheNome").textContent = paciente.nome || "—";
-  document.getElementById("detalheCPF").textContent = formatarCPF(paciente.cpf);
-  document.getElementById("detalheData").textContent = formatarData(paciente.criado_em);
-
-  detalhes.hidden = false;
-  formExame.reset();
-  statusExames.textContent = "";
-
+  el("detalheNome").textContent = paciente.nome || "—";
+  el("detalheCPF").textContent = formatarCPF(paciente.cpf);
+  el("detalheData").textContent = formatarData(paciente.criado_em);
+  el("mensagemFicha").textContent = "";
+  el("linkRecuperacao").replaceChildren();
+  el("linkRecuperacao").hidden = true;
+  el("detalhesPaciente").hidden = false;
+  el("formExame").reset();
+  el("statusExames").textContent = "";
   await carregarExames(paciente.id);
-  detalhes.scrollIntoView({ behavior: "smooth", block: "start" });
+  el("detalhesPaciente").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-document.getElementById("voltarLista").addEventListener("click", () => {
-  detalhes.hidden = true;
+el("voltarLista").addEventListener("click", () => {
+  el("detalhesPaciente").hidden = true;
   pacienteSelecionado = null;
-  document.getElementById("secaoLista").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
+  el("secaoLista").scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
-formPaciente.addEventListener("submit", async e => {
-  e.preventDefault();
-
-  mensagem.textContent = "";
-  const linkAcesso = document.getElementById("linkAcesso");
-  linkAcesso.replaceChildren();
-  linkAcesso.hidden = true;
-
-  if (!equipeAutorizada) {
-    mensagem.textContent = "Acesso não autorizado.";
+async function editarPaciente(p) {
+  if (!equipeAutorizada) return;
+  const nome = prompt("Nome completo do paciente:", p.nome || "");
+  if (nome === null) return;
+  const nomeLimpo = nome.trim();
+  if (nomeLimpo.length < 3) {
+    alert("Informe um nome com pelo menos 3 caracteres.");
     return;
   }
 
-  const nome = document.getElementById("nome").value.trim();
-  const cpf = document.getElementById("cpf").value.replace(/\D/g, "");
-  const email = document.getElementById("emailPaciente").value.trim().toLowerCase();
-  const telefone = document.getElementById("whatsappPaciente").value.replace(/\D/g, "");
-
-  if (nome.length < 3) {
-    mensagem.textContent = "Informe o nome completo do paciente.";
-    return;
-  }
-
+  const cpfDigitado = prompt("CPF do paciente:", formatarCPF(p.cpf));
+  if (cpfDigitado === null) return;
+  const cpf = cpfDigitado.replace(/\D/g, "");
   if (!validarCPF(cpf)) {
-    mensagem.textContent = "Confira o CPF informado. Use dados fictícios nos testes.";
+    alert("O CPF informado não é válido.");
     return;
   }
 
-  if (!email || !email.includes("@")) {
-    mensagem.textContent = "Informe um e-mail válido.";
+  if (!confirm(`Confirma a atualização do cadastro de ${p.nome}?`)) return;
+
+  try {
+    const resultado = await chamarGerenciar({
+      acao: "editar", id: p.id, nome: nomeLimpo, cpf
+    });
+    alert(resultado.warning || resultado.message || "Cadastro atualizado.");
+    await carregarPacientes();
+    if (pacienteSelecionado?.id === p.id) {
+      pacienteSelecionado = pacientesCache.find(x => x.id === p.id) || { ...p, nome: nomeLimpo, cpf };
+      el("detalheNome").textContent = pacienteSelecionado.nome;
+      el("detalheCPF").textContent = formatarCPF(pacienteSelecionado.cpf);
+    }
+  } catch (e) {
+    alert("Não foi possível editar o cadastro:\n" + e.message);
+  }
+}
+
+function criarLinkWhatsApp(numero, texto) {
+  const link = document.createElement("a");
+  link.href = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.className = "primary";
+  link.style.cssText = "display:inline-block;padding:12px 16px;border-radius:7px;color:white;text-decoration:none;font-weight:bold";
+  link.textContent = "Abrir WhatsApp para enviar";
+  return link;
+}
+
+async function gerarRecuperacao(p) {
+  if (!equipeAutorizada) return;
+  if (!p.usuario_id) {
+    alert("Este cadastro ainda não possui uma conta de acesso vinculada.");
     return;
   }
 
-  const telefoneValido =
-    telefone.length === 10 ||
-    telefone.length === 11 ||
-    ((telefone.length === 12 || telefone.length === 13) &&
-      telefone.startsWith("55"));
+  if (!confirm(`Gerar um novo link de recuperação de senha para ${p.nome}?`)) return;
+
+  const destino = prompt(
+    "Digite o WhatsApp do paciente com DDD. Você poderá conferir a mensagem antes de enviá-la:"
+  );
+  if (destino === null) return;
+  const telefone = destino.replace(/\D/g, "");
+  const telefoneValido = [10, 11, 12, 13].includes(telefone.length) &&
+    (telefone.length < 12 || telefone.startsWith("55"));
 
   if (!telefoneValido) {
-    mensagem.textContent =
-      "Informe um WhatsApp válido com DDD, incluindo o código 55 se necessário.";
+    alert("Informe um número válido com DDD. Para números com código do Brasil, use 55 antes do DDD.");
     return;
   }
 
-  salvar.disabled = true;
-  salvar.textContent = "Criando acesso...";
+  const numeroWhatsApp = telefone.startsWith("55") ? telefone : "55" + telefone;
+
+  try {
+    el("mensagemFicha").textContent = "Gerando link de recuperação...";
+    const resultado = await chamarGerenciar({ acao: "recuperacao", id: p.id });
+
+    const texto =
+      `Olá, ${resultado.nome || p.nome}! A Clínica de Cardiologia Fernando José Secanho preparou um link para você redefinir sua senha do Portal do Paciente. ` +
+      `Acesse: ${resultado.actionLink} ` +
+      `Se você não solicitou essa alteração, entre em contato com a clínica.`;
+
+    const container = el("linkRecuperacao");
+    container.replaceChildren();
+    container.appendChild(criarLinkWhatsApp(numeroWhatsApp, texto));
+
+    const copiar = criarBotao("Copiar link de recuperação", "secondary", async () => {
+      try {
+        await navigator.clipboard.writeText(resultado.actionLink);
+        alert("Link copiado. Compartilhe somente com o paciente correto.");
+      } catch {
+        prompt("Copie o link abaixo:", resultado.actionLink);
+      }
+    });
+    container.appendChild(copiar);
+    container.hidden = false;
+    el("mensagemFicha").textContent =
+      `Link gerado para a conta ${resultado.email}. Confira cuidadosamente o destinatário antes de enviar.`;
+  } catch (e) {
+    console.error(e);
+    el("mensagemFicha").textContent = "Não foi possível gerar o link: " + e.message;
+    alert("Falha ao gerar link de recuperação:\n" + e.message);
+  }
+}
+
+async function excluirPaciente(p) {
+  if (!equipeAutorizada) return;
+  const confirmacao = prompt(
+    `Atenção: esta ação removerá o cadastro de ${p.nome} e bloqueará o acesso, se houver conta vinculada.\n\nPara confirmar, digite EXCLUIR:`
+  );
+  if (confirmacao !== "EXCLUIR") {
+    if (confirmacao !== null) alert("Exclusão cancelada. É necessário digitar EXCLUIR exatamente.");
+    return;
+  }
+
+  try {
+    const resultado = await chamarGerenciar({ acao: "excluir", id: p.id });
+    alert(resultado.message || "Cadastro excluído.");
+    if (pacienteSelecionado?.id === p.id) {
+      pacienteSelecionado = null;
+      el("detalhesPaciente").hidden = true;
+    }
+    await carregarPacientes();
+  } catch (e) {
+    alert("Não foi possível excluir o cadastro:\n" + e.message);
+  }
+}
+
+el("editarFicha").addEventListener("click", () => {
+  if (pacienteSelecionado) editarPaciente(pacienteSelecionado);
+});
+el("recuperarFicha").addEventListener("click", () => {
+  if (pacienteSelecionado) gerarRecuperacao(pacienteSelecionado);
+});
+el("excluirFicha").addEventListener("click", () => {
+  if (pacienteSelecionado) excluirPaciente(pacienteSelecionado);
+});
+
+el("formPaciente").addEventListener("submit", async e => {
+  e.preventDefault();
+  el("mensagem").textContent = "";
+  const container = el("linkAcesso");
+  container.replaceChildren();
+  container.hidden = true;
+
+  if (!equipeAutorizada) {
+    el("mensagem").textContent = "Acesso não autorizado.";
+    return;
+  }
+
+  const nome = el("nome").value.trim();
+  const cpf = el("cpf").value.replace(/\D/g, "");
+  const email = el("emailPaciente").value.trim().toLowerCase();
+  const telefone = el("whatsappPaciente").value.replace(/\D/g, "");
+
+  if (nome.length < 3) {
+    el("mensagem").textContent = "Informe o nome completo do paciente.";
+    return;
+  }
+  if (!validarCPF(cpf)) {
+    el("mensagem").textContent = "Confira o CPF informado. Use dados fictícios nos testes.";
+    return;
+  }
+  if (!email || !email.includes("@")) {
+    el("mensagem").textContent = "Informe um e-mail válido.";
+    return;
+  }
+  if (![10, 11, 12, 13].includes(telefone.length) ||
+      ((telefone.length === 12 || telefone.length === 13) && !telefone.startsWith("55"))) {
+    el("mensagem").textContent = "Informe um WhatsApp válido com DDD.";
+    return;
+  }
+
+  el("salvar").disabled = true;
+  el("salvar").textContent = "Criando acesso...";
 
   try {
     const { data, error } = await supabase.functions.invoke(
-      "criar-acesso-paciente",
-      { body: { nome, cpf, email } }
+      "criar-acesso-paciente", { body: { nome, cpf, email } }
     );
 
     if (error || !data?.success || !data?.actionLink) {
-      let detalhe = data?.error;
-
+      let detalhe = data?.error || error?.message;
       if (error?.context && typeof error.context.json === "function") {
         try {
           const resposta = await error.context.json();
           detalhe = resposta?.error || resposta?.message || detalhe;
-        } catch (erroLeitura) {
-          console.error("Não foi possível ler o detalhe retornado pela função.");
-        }
+        } catch {}
       }
-
-      console.error("Erro ao criar acesso:", error, data);
-      mensagem.textContent =
-        detalhe ||
-        `Falha ao criar acesso. ${error?.message || "Consulte os logs da função."}`;
-      return;
+      throw new Error(detalhe || "Falha ao criar acesso.");
     }
 
-    const numeroWhatsApp = telefone.startsWith("55")
-      ? telefone
-      : `55${telefone}`;
-
-    const textoWhatsApp =
-      `Olá, ${nome}! A Clínica de Cardiologia Fernando José Secanho ` +
-      `preparou seu acesso ao Portal do Paciente. ` +
+    const numero = telefone.startsWith("55") ? telefone : "55" + telefone;
+    const texto =
+      `Olá, ${nome}! A Clínica de Cardiologia Fernando José Secanho preparou seu acesso ao Portal do Paciente. ` +
       `Para definir sua senha, abra este link: ${data.actionLink} ` +
       `Se não solicitou esse acesso, entre em contato com a clínica.`;
 
-    const linkWhatsApp = document.createElement("a");
-    linkWhatsApp.href =
-      `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoWhatsApp)}`;
-    linkWhatsApp.target = "_blank";
-    linkWhatsApp.rel = "noopener noreferrer";
-    linkWhatsApp.className = "primary";
-    linkWhatsApp.style.cssText =
-      "display:inline-block;padding:12px 16px;border-radius:7px;" +
-      "color:white;text-decoration:none;font-weight:bold;";
-    linkWhatsApp.textContent = "Abrir WhatsApp para enviar o acesso";
+    container.appendChild(criarLinkWhatsApp(numero, texto));
+    const copiar = criarBotao("Copiar link de acesso", "secondary", async () => {
+      try {
+        await navigator.clipboard.writeText(data.actionLink);
+        alert("Link copiado.");
+      } catch {
+        prompt("Copie o link abaixo:", data.actionLink);
+      }
+    });
+    container.appendChild(copiar);
+    container.hidden = false;
+    el("mensagem").textContent =
+      `Acesso criado ou vinculado para ${data.nome || nome}. Confira o destinatário antes de enviar pelo WhatsApp.`;
 
-    linkAcesso.appendChild(linkWhatsApp);
-    linkAcesso.hidden = false;
-
-    mensagem.textContent =
-      `Acesso criado e vinculado para ${data.nome || nome}. ` +
-      "Confira o destinatário antes de preparar o envio pelo WhatsApp.";
-
-    formPaciente.reset();
+    el("formPaciente").reset();
     await carregarPacientes();
-
-  } catch (error) {
-    console.error("Falha na criação do acesso:", error);
-    mensagem.textContent =
-      "Erro de conexão ao criar o acesso. Verifique os logs da função no Supabase antes de tentar novamente.";
+  } catch (e) {
+    console.error(e);
+    el("mensagem").textContent = "Não foi possível criar o acesso: " + e.message;
   } finally {
-    salvar.disabled = false;
-    salvar.textContent = "Cadastrar paciente e criar acesso";
+    el("salvar").disabled = false;
+    el("salvar").textContent = "Cadastrar paciente e criar acesso";
   }
 });
 
 async function carregarExames(pacienteId) {
-  if (!equipeAutorizada || !pacienteSelecionado ||
-      pacienteSelecionado.id !== pacienteId) return;
+  if (!equipeAutorizada || !pacienteSelecionado || pacienteSelecionado.id !== pacienteId) return;
 
-  listaExames.replaceChildren();
+  el("listaExames").replaceChildren();
   const carregando = document.createElement("p");
   carregando.className = "muted";
   carregando.textContent = "Carregando exames...";
-  listaExames.appendChild(carregando);
+  el("listaExames").appendChild(carregando);
 
   const { data, error } = await supabase
     .from("exames")
-    .select("id, paciente_id, titulo, descricao, caminho_arquivo, publicado, publicado_por, criado_em")
+    .select("id,paciente_id,titulo,descricao,caminho_arquivo,publicado,publicado_por,criado_em")
     .eq("paciente_id", pacienteId)
     .order("criado_em", { ascending: false });
 
   if (error) {
-    listaExames.replaceChildren();
+    console.error(error);
+    el("listaExames").replaceChildren();
     const aviso = document.createElement("p");
     aviso.className = "muted";
     aviso.textContent = "Não foi possível carregar os exames.";
-    listaExames.appendChild(aviso);
-    console.error(error);
+    el("listaExames").appendChild(aviso);
     return;
   }
 
-  listaExames.replaceChildren();
-
-  if (!data || data.length === 0) {
+  el("listaExames").replaceChildren();
+  if (!data?.length) {
     const aviso = document.createElement("p");
     aviso.className = "muted";
     aviso.textContent = "Este paciente ainda não possui exames cadastrados.";
-    listaExames.appendChild(aviso);
+    el("listaExames").appendChild(aviso);
     return;
   }
 
   for (const exame of data) {
     const item = document.createElement("article");
     item.className = "exam-item";
-
     const titulo = document.createElement("h3");
     titulo.textContent = exame.titulo || "Exame sem título";
     item.appendChild(titulo);
@@ -697,188 +643,140 @@ async function carregarExames(pacienteId) {
     item.appendChild(dataExame);
 
     const status = document.createElement("p");
-    status.className = "exam-status " +
-      (exame.publicado ? "status-publicado" : "status-rascunho");
+    status.className = "exam-status " + (exame.publicado ? "status-publicado" : "status-rascunho");
     status.textContent = exame.publicado ? "Publicado no cadastro" : "Não publicado";
     item.appendChild(status);
 
     const acoes = document.createElement("div");
     acoes.className = "actions";
-
-    const abrir = document.createElement("button");
-    abrir.type = "button";
-    abrir.className = "secondary";
-    abrir.textContent = "Abrir arquivo";
-    abrir.addEventListener("click", () => abrirArquivo(exame));
-    acoes.appendChild(abrir);
-
-    const publicar = document.createElement("button");
-    publicar.type = "button";
-    publicar.className = exame.publicado ? "danger" : "success";
-    publicar.textContent = exame.publicado ? "Retirar publicação" : "Publicar exame";
-    publicar.addEventListener("click", () => alterarPublicacao(exame));
-    acoes.appendChild(publicar);
-
+    acoes.appendChild(criarBotao("Abrir arquivo", "secondary", () => abrirArquivo(exame)));
+    acoes.appendChild(criarBotao(
+      exame.publicado ? "Retirar publicação" : "Publicar exame",
+      exame.publicado ? "danger" : "success",
+      () => alterarPublicacao(exame)
+    ));
     item.appendChild(acoes);
-    listaExames.appendChild(item);
+    el("listaExames").appendChild(item);
   }
 }
 
-formExame.addEventListener("submit", async e => {
+el("formExame").addEventListener("submit", async e => {
   e.preventDefault();
-  statusExames.textContent = "";
+  el("statusExames").textContent = "";
 
   if (!equipeAutorizada || !pacienteSelecionado) {
-    statusExames.textContent = "Selecione um paciente antes de enviar o exame.";
+    el("statusExames").textContent = "Selecione um paciente antes de enviar o exame.";
     return;
   }
 
-  const titulo = document.getElementById("tituloExame").value.trim();
-  const descricao = document.getElementById("descricaoExame").value.trim();
-  const arquivo = document.getElementById("arquivoExame").files[0];
+  const titulo = el("tituloExame").value.trim();
+  const descricao = el("descricaoExame").value.trim();
+  const arquivo = el("arquivoExame").files[0];
 
   if (!titulo) {
-    statusExames.textContent = "Informe o título do exame.";
+    el("statusExames").textContent = "Informe o título do exame.";
     return;
   }
-
   if (!arquivo) {
-    statusExames.textContent = "Selecione o arquivo do exame.";
+    el("statusExames").textContent = "Selecione o arquivo do exame.";
     return;
   }
-
   if (arquivo.size <= 0 || arquivo.size > TAMANHO_MAXIMO) {
-    statusExames.textContent = "O arquivo está vazio ou ultrapassa o limite de 15 MB.";
+    el("statusExames").textContent = "O arquivo está vazio ou ultrapassa o limite de 15 MB.";
     return;
   }
-
   if (!TIPOS_PERMITIDOS.includes(arquivo.type)) {
-    statusExames.textContent = "Formato não permitido. Selecione PDF, JPG, PNG ou WEBP.";
+    el("statusExames").textContent = "Formato não permitido. Selecione PDF, JPG, PNG ou WEBP.";
     return;
   }
 
-  enviarExame.disabled = true;
-  enviarExame.textContent = "Enviando arquivo...";
-
+  el("enviarExame").disabled = true;
+  el("enviarExame").textContent = "Enviando arquivo...";
   let caminhoArquivo = null;
 
   try {
-    const extensaoOriginal = arquivo.name.split(".").pop().toLowerCase();
-    const extensoesPermitidas = ["pdf", "jpg", "jpeg", "png", "webp"];
-
-    if (!extensoesPermitidas.includes(extensaoOriginal)) {
-      statusExames.textContent = "A extensão do arquivo não é permitida.";
+    const extensao = arquivo.name.split(".").pop().toLowerCase();
+    if (!["pdf", "jpg", "jpeg", "png", "webp"].includes(extensao)) {
+      el("statusExames").textContent = "A extensão do arquivo não é permitida.";
       return;
     }
 
-    const nomeSeguro = arquivo.name
-      .normalize("NFD")
+    const nomeSeguro = arquivo.name.normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-zA-Z0-9._-]/g, "_")
-      .slice(-100);
-
-    caminhoArquivo =
-      `${pacienteSelecionado.id}/${crypto.randomUUID()}-${nomeSeguro}`;
+      .replace(/[^a-zA-Z0-9._-]/g, "_").slice(-100);
+    caminhoArquivo = `${pacienteSelecionado.id}/${crypto.randomUUID()}-${nomeSeguro}`;
 
     const { error: erroUpload } = await supabase.storage
       .from(BUCKET_EXAMES)
-      .upload(caminhoArquivo, arquivo, {
-        contentType: arquivo.type,
-        upsert: false
-      });
+      .upload(caminhoArquivo, arquivo, { contentType: arquivo.type, upsert: false });
 
     if (erroUpload) {
       console.error(erroUpload);
-      statusExames.textContent =
-        "Não foi possível enviar o arquivo. Verifique as permissões e os limites do bucket.";
+      el("statusExames").textContent = "Não foi possível enviar o arquivo. Verifique as permissões e os limites do bucket.";
       return;
     }
 
-    statusExames.textContent = "Arquivo enviado. Salvando cadastro do exame...";
-
-    const { error: erroCadastro } = await supabase
-      .from("exames")
-      .insert({
-        paciente_id: pacienteSelecionado.id,
-        titulo,
-        descricao: descricao || null,
-        caminho_arquivo: caminhoArquivo,
-        publicado: false,
-        publicado_por: null
-      });
+    el("statusExames").textContent = "Arquivo enviado. Salvando cadastro do exame...";
+    const { error: erroCadastro } = await supabase.from("exames").insert({
+      paciente_id: pacienteSelecionado.id,
+      titulo,
+      descricao: descricao || null,
+      caminho_arquivo: caminhoArquivo,
+      publicado: false,
+      publicado_por: null
+    });
 
     if (erroCadastro) {
       console.error(erroCadastro);
-
-      const { error: erroRemocao } = await supabase.storage
-        .from(BUCKET_EXAMES)
-        .remove([caminhoArquivo]);
-
-      if (erroRemocao) {
-        console.error("Não foi possível remover o arquivo órfão:", erroRemocao);
-      }
-
-      statusExames.textContent =
-        "O arquivo foi enviado, mas o cadastro do exame falhou. Confira as permissões da tabela.";
+      const { error: erroRemocao } = await supabase.storage.from(BUCKET_EXAMES).remove([caminhoArquivo]);
+      if (erroRemocao) console.error("Falha ao remover arquivo órfão:", erroRemocao);
+      el("statusExames").textContent = "O arquivo foi enviado, mas o cadastro do exame falhou. Confira as permissões da tabela.";
       return;
     }
 
-    formExame.reset();
-    statusExames.textContent = "Exame cadastrado como não publicado.";
+    el("formExame").reset();
+    el("statusExames").textContent = "Exame cadastrado como não publicado.";
     await carregarExames(pacienteSelecionado.id);
-
-  } catch (error) {
-    console.error(error);
-    statusExames.textContent =
-      "Ocorreu um erro ao enviar o exame. Confira a conexão e tente novamente.";
+  } catch (e) {
+    console.error(e);
+    el("statusExames").textContent = "Ocorreu um erro ao enviar o exame. Confira a conexão e tente novamente.";
   } finally {
-    enviarExame.disabled = false;
-    enviarExame.textContent = "Enviar exame";
+    el("enviarExame").disabled = false;
+    el("enviarExame").textContent = "Enviar exame";
   }
 });
 
 async function abrirArquivo(exame) {
   if (!equipeAutorizada || !exame?.caminho_arquivo) return;
-
   try {
     const { data, error } = await supabase.storage
-      .from(BUCKET_EXAMES)
-      .createSignedUrl(exame.caminho_arquivo, 60);
-
+      .from(BUCKET_EXAMES).createSignedUrl(exame.caminho_arquivo, 60);
     if (error || !data?.signedUrl) {
       console.error(error);
-      statusExames.textContent =
-        "Não foi possível abrir o arquivo. Verifique as permissões do Storage.";
+      el("statusExames").textContent = "Não foi possível abrir o arquivo. Verifique as permissões do Storage.";
       return;
     }
-
     const novaAba = window.open(data.signedUrl, "_blank", "noopener,noreferrer");
-
     if (!novaAba) {
-      statusExames.textContent =
-        "O navegador bloqueou a nova aba. Permita pop-ups para este site e tente novamente.";
+      el("statusExames").textContent = "O navegador bloqueou a nova aba. Permita pop-ups e tente novamente.";
     }
-  } catch (error) {
-    console.error(error);
-    statusExames.textContent = "Erro ao tentar abrir o arquivo.";
+  } catch (e) {
+    console.error(e);
+    el("statusExames").textContent = "Erro ao tentar abrir o arquivo.";
   }
 }
 
 async function alterarPublicacao(exame) {
   if (!equipeAutorizada || !pacienteSelecionado) return;
-
   const novoEstado = !exame.publicado;
   const confirmacao = novoEstado
     ? "Deseja marcar este exame como publicado?"
     : "Deseja retirar a publicação deste exame?";
+  if (!confirm(confirmacao)) return;
 
-  if (!window.confirm(confirmacao)) return;
-
-  statusExames.textContent = "Atualizando publicação...";
-
+  el("statusExames").textContent = "Atualizando publicação...";
   try {
-    const { error } = await supabase
-      .from("exames")
+    const { error } = await supabase.from("exames")
       .update({
         publicado: novoEstado,
         publicado_por: novoEstado ? usuarioEquipeId : null
@@ -887,36 +785,22 @@ async function alterarPublicacao(exame) {
       .eq("paciente_id", pacienteSelecionado.id);
 
     if (error) {
-      console.error("Erro ao publicar exame:", error);
-      statusExames.textContent =
-        "Erro ao publicar: " + (error.message || "Erro desconhecido") +
-        (error.code ? " (código: " + error.code + ")" : "");
-
-      alert(
-        "Erro ao publicar exame:\n" +
-        (error.message || "Erro desconhecido") +
-        (error.code ? "\nCódigo: " + error.code : "")
-      );
+      console.error(error);
+      el("statusExames").textContent = "Erro ao atualizar publicação: " + error.message;
       return;
     }
-
-    statusExames.textContent = novoEstado
+    el("statusExames").textContent = novoEstado
       ? "Exame marcado como publicado no cadastro."
       : "Publicação retirada.";
-
     await carregarExames(pacienteSelecionado.id);
-
-  } catch (error) {
-    console.error(error);
-    statusExames.textContent = "Erro ao atualizar a publicação.";
+  } catch (e) {
+    console.error(e);
+    el("statusExames").textContent = "Erro ao atualizar a publicação.";
   }
 }
 
-document.getElementById("recarregar").addEventListener("click", () => {
-  carregarPacientes();
-});
-
-sair.addEventListener("click", async () => {
+el("recarregar").addEventListener("click", carregarPacientes);
+el("sair").addEventListener("click", async () => {
   await supabase.auth.signOut();
   window.location.href = "portal.html";
 });
