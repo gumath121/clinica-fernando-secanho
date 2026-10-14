@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Painel Administrativo | Clínica Fernando José Secanho</title>
+
 <style>
 :root {
   --navy: #102b49;
@@ -15,30 +16,41 @@
   --border: #dce4ec;
 }
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
+
 header {
   background: var(--navy);
   color: white;
   padding: 22px 18px;
 }
+
 .header-inner, main {
   max-width: 1050px;
   margin: auto;
 }
-header h1 { margin: 0 0 7px; font-size: 22px; }
+
+header h1 {
+  margin: 0 0 7px;
+  font-size: 22px;
+}
+
 header p { margin: 0; opacity: .85; }
+
 .header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
+
 main { padding: 24px 16px 50px; }
+
 .card {
   background: white;
   padding: 22px;
@@ -47,13 +59,16 @@ main { padding: 24px 16px 50px; }
   margin-bottom: 20px;
   box-shadow: 0 3px 12px #122b4908;
 }
+
 h2 { margin-top: 0; font-size: 20px; }
+
 label {
   display: block;
   margin: 14px 0 6px;
   font-weight: bold;
   font-size: 14px;
 }
+
 input {
   width: 100%;
   padding: 12px;
@@ -61,6 +76,7 @@ input {
   border-radius: 7px;
   font-size: 16px;
 }
+
 button {
   border: 0;
   border-radius: 7px;
@@ -69,28 +85,114 @@ button {
   font-weight: bold;
   font-size: 14px;
 }
-.primary { background: var(--blue); color: white; }
-.secondary { background: white; color: var(--navy); }
-.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-#status { line-height: 1.5; white-space: pre-wrap; }
-.muted { color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+button:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.primary {
+  background: var(--blue);
+  color: white;
+}
+
+.secondary {
+  background: white;
+  color: var(--navy);
+  border: 1px solid var(--border);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+#status {
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 .table-wrap { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; min-width: 480px; }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 480px;
+}
+
 th, td {
   padding: 12px 10px;
   text-align: left;
   border-bottom: 1px solid var(--border);
   font-size: 14px;
 }
+
 th { background: #f7f9fc; }
+
+.patient-link {
+  color: var(--blue);
+  background: transparent;
+  padding: 4px 0;
+  text-align: left;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.detail-item {
+  padding: 14px;
+  background: #f7f9fc;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+
+.detail-label {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+.detail-value {
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+#mensagem, #status {
+  overflow-wrap: anywhere;
+}
+
 [hidden] { display: none !important; }
+
 @media (max-width: 600px) {
-  .header-row { align-items: flex-start; flex-direction: column; }
+  .header-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .card { padding: 17px; }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
+
 <body>
+
 <header>
   <div class="header-inner header-row">
     <div>
@@ -102,47 +204,66 @@ th { background: #f7f9fc; }
 </header>
 
 <main>
+
   <section class="card">
     <h2>Acesso à equipe</h2>
     <p id="status">Verificando autenticação...</p>
   </section>
 
   <div id="painel" hidden>
+
     <section class="card">
       <h2>Cadastrar paciente</h2>
+
       <p class="muted">
-        Cadastre somente os dados necessários. Este formulário não cria
-        uma conta de login para o paciente.
+        Cadastre somente os dados necessários.
+        Este formulário não cria uma conta de login para o paciente.
       </p>
 
       <form id="formPaciente">
+
         <label for="nome">Nome completo</label>
-        <input id="nome" name="nome" maxlength="150" required
-               autocomplete="off" placeholder="Nome do paciente">
+        <input
+          id="nome"
+          name="nome"
+          maxlength="150"
+          required
+          autocomplete="off"
+          placeholder="Nome do paciente"
+        >
 
         <label for="cpf">CPF</label>
-        <input id="cpf" name="cpf" inputmode="numeric"
-               maxlength="14" required autocomplete="off"
-               placeholder="000.000.000-00">
+        <input
+          id="cpf"
+          name="cpf"
+          inputmode="numeric"
+          maxlength="14"
+          required
+          autocomplete="off"
+          placeholder="000.000.000-00"
+        >
 
         <div class="actions">
           <button class="primary" id="salvar" type="submit">
             Cadastrar paciente
           </button>
+
           <button class="secondary" id="recarregar" type="button">
             Atualizar lista
           </button>
         </div>
       </form>
+
       <p id="mensagem" role="status"></p>
     </section>
 
-    <section class="card">
+    <section class="card" id="secaoLista">
       <h2>Pacientes cadastrados</h2>
+
       <p class="muted">
-        A lista é visível somente para contas autorizadas pela política
-        de acesso do banco de dados.
+        Clique no nome de um paciente para abrir sua ficha.
       </p>
+
       <div class="table-wrap">
         <table>
           <thead>
@@ -152,12 +273,61 @@ th { background: #f7f9fc; }
               <th>Data do cadastro</th>
             </tr>
           </thead>
+
           <tbody id="lista">
-            <tr><td colspan="3">Carregando...</td></tr>
+            <tr>
+              <td colspan="3">Carregando...</td>
+            </tr>
           </tbody>
         </table>
       </div>
     </section>
+
+    <section class="card" id="detalhesPaciente" hidden>
+
+      <h2>Ficha do paciente</h2>
+
+      <p class="muted">
+        Dados cadastrais do paciente selecionado.
+      </p>
+
+      <div class="detail-grid">
+
+        <div class="detail-item">
+          <div class="detail-label">Nome completo</div>
+          <div class="detail-value" id="detalheNome"></div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">CPF</div>
+          <div class="detail-value" id="detalheCPF"></div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">Data do cadastro</div>
+          <div class="detail-value" id="detalheData"></div>
+        </div>
+
+      </div>
+
+      <div class="actions">
+        <button class="secondary" id="voltarLista" type="button">
+          Voltar para pacientes
+        </button>
+      </div>
+
+      <hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
+
+      <h2>Exames do paciente</h2>
+
+      <p class="muted" id="avisoExames">
+        A área de exames será conectada na próxima etapa,
+        após confirmarmos a estrutura das tabelas e as permissões
+        do banco de dados.
+      </p>
+
+    </section>
+
   </div>
 </main>
 
@@ -183,11 +353,15 @@ const form = document.getElementById("formPaciente");
 const mensagem = document.getElementById("mensagem");
 const lista = document.getElementById("lista");
 const salvar = document.getElementById("salvar");
+const detalhes = document.getElementById("detalhesPaciente");
 
 let equipeAutorizada = false;
 
 function formatarCPF(valor) {
-  const n = valor.replace(/\D/g, "").slice(0, 11);
+  const n = String(valor ?? "")
+    .replace(/\D/g, "")
+    .slice(0, 11);
+
   return n
     .replace(/^(\d{3})(\d)/, "$1.$2")
     .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
@@ -200,57 +374,102 @@ document.getElementById("cpf").addEventListener("input", e => {
 
 function validarCPF(cpf) {
   cpf = cpf.replace(/\D/g, "");
-  if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+
+  if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+    return false;
+  }
 
   let soma = 0;
-  for (let i = 0; i < 9; i++) soma += Number(cpf[i]) * (10 - i);
+
+  for (let i = 0; i < 9; i++) {
+    soma += Number(cpf[i]) * (10 - i);
+  }
+
   let digito = (soma * 10) % 11;
   if (digito === 10) digito = 0;
+
   if (digito !== Number(cpf[9])) return false;
 
   soma = 0;
-  for (let i = 0; i < 10; i++) soma += Number(cpf[i]) * (11 - i);
+
+  for (let i = 0; i < 10; i++) {
+    soma += Number(cpf[i]) * (11 - i);
+  }
+
   digito = (soma * 10) % 11;
   if (digito === 10) digito = 0;
 
   return digito === Number(cpf[10]);
 }
 
+function formatarData(valor) {
+  if (!valor) return "—";
+
+  const data = new Date(valor);
+
+  if (Number.isNaN(data.getTime())) return "—";
+
+  return data.toLocaleDateString("pt-BR");
+}
+
 async function verificarAcesso() {
-  const { data, error } = await supabase.auth.getUser();
+  try {
+    const { data, error } = await supabase.auth.getUser();
 
-  if (error || !data.user) {
+    if (error || !data.user) {
+      statusEl.textContent =
+        "Faça login pelo portal antes de acessar o painel administrativo.";
+      return;
+    }
+
+    const { data: perfil, error: erroPerfil } = await supabase
+      .from("perfis")
+      .select("nome, tipo, ativo")
+      .eq("id", data.user.id)
+      .maybeSingle();
+
+    if (
+      erroPerfil ||
+      !perfil ||
+      !perfil.ativo ||
+      !["medico", "secretaria"].includes(perfil.tipo)
+    ) {
+      statusEl.textContent =
+        "Acesso restrito à equipe autorizada da clínica.";
+      return;
+    }
+
+    equipeAutorizada = true;
+
     statusEl.textContent =
-      "Faça login pelo portal antes de acessar o painel administrativo.";
-    return;
-  }
+      `Bem-vindo(a), ${perfil.nome}. Perfil: ${perfil.tipo}.`;
 
-  const { data: perfil, error: erroPerfil } = await supabase
-    .from("perfis")
-    .select("nome, tipo, ativo")
-    .eq("id", data.user.id)
-    .maybeSingle();
+    painel.hidden = false;
+    sair.hidden = false;
 
-  if (erroPerfil || !perfil || !perfil.ativo ||
-      !["medico", "secretaria"].includes(perfil.tipo)) {
+    await carregarPacientes();
+
+  } catch (error) {
     statusEl.textContent =
-      "Acesso restrito à equipe autorizada da clínica.";
-    return;
-  }
+      "Não foi possível verificar o acesso. Confira a conexão e tente novamente.";
 
-  equipeAutorizada = true;
-  statusEl.textContent =
-    `Bem-vindo(a), ${perfil.nome}. Perfil: ${perfil.tipo}.`;
-  painel.hidden = false;
-  sair.hidden = false;
-  await carregarPacientes();
+    console.error(error);
+  }
 }
 
 async function carregarPacientes() {
   if (!equipeAutorizada) return;
 
-  lista.innerHTML =
-    '<tr><td colspan="3">Carregando pacientes...</td></tr>';
+  lista.replaceChildren();
+
+  const trCarregando = document.createElement("tr");
+  const tdCarregando = document.createElement("td");
+
+  tdCarregando.colSpan = 3;
+  tdCarregando.textContent = "Carregando pacientes...";
+
+  trCarregando.appendChild(tdCarregando);
+  lista.appendChild(trCarregando);
 
   const { data, error } = await supabase
     .from("pacientes")
@@ -259,37 +478,92 @@ async function carregarPacientes() {
     .limit(200);
 
   if (error) {
-    lista.innerHTML =
-      '<tr><td colspan="3">Não foi possível carregar a lista.</td></tr>';
+    lista.replaceChildren();
+
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+
+    td.colSpan = 3;
+    td.textContent = "Não foi possível carregar a lista.";
+
+    tr.appendChild(td);
+    lista.appendChild(tr);
+
     mensagem.textContent =
       "Erro ao carregar pacientes. Confira as permissões do banco.";
-    return;
-  }
 
-  if (!data || data.length === 0) {
-    lista.innerHTML =
-      '<tr><td colspan="3">Nenhum paciente cadastrado.</td></tr>';
+    console.error(error);
     return;
   }
 
   lista.replaceChildren();
 
+  if (!data || data.length === 0) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+
+    td.colSpan = 3;
+    td.textContent = "Nenhum paciente cadastrado.";
+
+    tr.appendChild(td);
+    lista.appendChild(tr);
+    return;
+  }
+
   for (const paciente of data) {
     const tr = document.createElement("tr");
-    const nome = document.createElement("td");
-    const cpf = document.createElement("td");
-    const dataCadastro = document.createElement("td");
+    const tdNome = document.createElement("td");
+    const tdCPF = document.createElement("td");
+    const tdData = document.createElement("td");
 
-    nome.textContent = paciente.nome;
-    cpf.textContent = paciente.cpf;
-    dataCadastro.textContent = paciente.criado_em
-      ? new Date(paciente.criado_em).toLocaleDateString("pt-BR")
-      : "—";
+    const botaoNome = document.createElement("button");
 
-    tr.append(nome, cpf, dataCadastro);
+    botaoNome.type = "button";
+    botaoNome.className = "patient-link";
+    botaoNome.textContent = paciente.nome;
+    botaoNome.setAttribute("aria-label", "Abrir ficha do paciente");
+
+    botaoNome.addEventListener("click", () => {
+      abrirFichaPaciente(paciente);
+    });
+
+    tdNome.appendChild(botaoNome);
+    tdCPF.textContent = formatarCPF(paciente.cpf);
+    tdData.textContent = formatarData(paciente.criado_em);
+
+    tr.append(tdNome, tdCPF, tdData);
     lista.appendChild(tr);
   }
 }
+
+function abrirFichaPaciente(paciente) {
+  if (!equipeAutorizada || !paciente) return;
+
+  document.getElementById("detalheNome").textContent =
+    paciente.nome || "—";
+
+  document.getElementById("detalheCPF").textContent =
+    formatarCPF(paciente.cpf);
+
+  document.getElementById("detalheData").textContent =
+    formatarData(paciente.criado_em);
+
+  detalhes.hidden = false;
+
+  detalhes.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+document.getElementById("voltarLista").addEventListener("click", () => {
+  detalhes.hidden = true;
+
+  document.getElementById("secaoLista").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+});
 
 form.addEventListener("submit", async e => {
   e.preventDefault();
@@ -301,43 +575,60 @@ form.addEventListener("submit", async e => {
   }
 
   const nome = document.getElementById("nome").value.trim();
-  const cpf = document.getElementById("cpf").value.replace(/\D/g, "");
+
+  const cpf = document.getElementById("cpf").value
+    .replace(/\D/g, "");
 
   if (nome.length < 3) {
-    mensagem.textContent = "Informe o nome completo do paciente.";
+    mensagem.textContent =
+      "Informe o nome completo do paciente.";
     return;
   }
 
   if (!validarCPF(cpf)) {
     mensagem.textContent =
-      "Confira o CPF informado. Para testes, use apenas dados fictícios.";
+      "Confira o CPF informado. Para testes, use somente dados fictícios.";
     return;
   }
 
   salvar.disabled = true;
   salvar.textContent = "Salvando...";
 
-  const { error } = await supabase
-    .from("pacientes")
-    .insert({
-      nome,
-      cpf,
-      usuario_id: null
-    });
+  try {
+    const { error } = await supabase
+      .from("pacientes")
+      .insert({
+        nome,
+        cpf,
+        usuario_id: null
+      });
 
-  salvar.disabled = false;
-  salvar.textContent = "Cadastrar paciente";
+    if (error) {
+      mensagem.textContent = error.code === "23505"
+        ? "Já existe um cadastro com esse CPF."
+        : "Não foi possível cadastrar. Confira as permissões do banco.";
 
-  if (error) {
-    mensagem.textContent = error.code === "23505"
-      ? "Já existe um cadastro com esse CPF."
-      : "Não foi possível cadastrar. Confira as permissões do banco.";
-    return;
+      console.error(error);
+      return;
+    }
+
+    form.reset();
+
+    mensagem.textContent =
+      "Paciente cadastrado com sucesso.";
+
+    await carregarPacientes();
+
+  } catch (error) {
+    mensagem.textContent =
+      "Erro de conexão ao cadastrar o paciente.";
+
+    console.error(error);
+
+  } finally {
+    salvar.disabled = false;
+    salvar.textContent = "Cadastrar paciente";
   }
-
-  form.reset();
-  mensagem.textContent = "Paciente cadastrado com sucesso.";
-  await carregarPacientes();
 });
 
 document.getElementById("recarregar").addEventListener("click", () => {
@@ -351,5 +642,6 @@ sair.addEventListener("click", async () => {
 
 verificarAcesso();
 </script>
+
 </body>
 </html>
