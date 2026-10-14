@@ -18,41 +18,30 @@
   --red: #b42318;
 }
 * { box-sizing: border-box; }
-
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
-
 header {
   background: var(--navy);
   color: white;
   padding: 22px 18px;
 }
-
 .header-inner, main {
   max-width: 1050px;
   margin: auto;
 }
-
-header h1 {
-  margin: 0 0 7px;
-  font-size: 22px;
-}
-
+header h1 { margin: 0 0 7px; font-size: 22px; }
 header p { margin: 0; opacity: .85; }
-
 .header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
-
 main { padding: 24px 16px 50px; }
-
 .card {
   background: white;
   padding: 22px;
@@ -61,16 +50,13 @@ main { padding: 24px 16px 50px; }
   margin-bottom: 20px;
   box-shadow: 0 3px 12px #122b4908;
 }
-
 h2 { margin-top: 0; font-size: 20px; }
-
 label {
   display: block;
   margin: 14px 0 6px;
   font-weight: bold;
   font-size: 14px;
 }
-
 input, textarea {
   width: 100%;
   padding: 12px;
@@ -79,12 +65,7 @@ input, textarea {
   font-size: 16px;
   font-family: inherit;
 }
-
-textarea {
-  min-height: 90px;
-  resize: vertical;
-}
-
+textarea { min-height: 90px; resize: vertical; }
 button {
   border: 0;
   border-radius: 7px;
@@ -93,12 +74,7 @@ button {
   font-weight: bold;
   font-size: 14px;
 }
-
-button:disabled {
-  opacity: .6;
-  cursor: wait;
-}
-
+button:disabled { opacity: .6; cursor: wait; }
 .primary { background: var(--blue); color: white; }
 .secondary {
   background: white;
@@ -111,43 +87,27 @@ button:disabled {
   color: var(--red);
   border: 1px solid #e6b8b5;
 }
-
 .actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 18px;
 }
-
 #status, #mensagem, #statusExames {
   line-height: 1.5;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
-
-.muted {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
-}
-
+.muted { color: var(--muted); font-size: 14px; line-height: 1.5; }
 .table-wrap { overflow-x: auto; }
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-  min-width: 480px;
-}
-
+table { border-collapse: collapse; width: 100%; min-width: 480px; }
 th, td {
   padding: 12px 10px;
   text-align: left;
   border-bottom: 1px solid var(--border);
   font-size: 14px;
 }
-
 th { background: #f7f9fc; }
-
 .patient-link {
   color: var(--blue);
   background: transparent;
@@ -156,31 +116,19 @@ th { background: #f7f9fc; }
   text-decoration: underline;
   font-size: 14px;
 }
-
 .detail-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
-
 .detail-item {
   padding: 14px;
   background: #f7f9fc;
   border-radius: 8px;
   overflow-wrap: anywhere;
 }
-
-.detail-label {
-  color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 7px;
-}
-
-.detail-value {
-  font-weight: bold;
-  line-height: 1.5;
-}
-
+.detail-label { color: var(--muted); font-size: 12px; margin-bottom: 7px; }
+.detail-value { font-weight: bold; line-height: 1.5; }
 .exam-item {
   border: 1px solid var(--border);
   border-radius: 9px;
@@ -188,34 +136,14 @@ th { background: #f7f9fc; }
   margin-top: 12px;
   overflow-wrap: anywhere;
 }
-
-.exam-item h3 {
-  font-size: 16px;
-  margin: 0 0 8px;
-}
-
-.exam-item p {
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 7px 0;
-}
-
-.exam-status {
-  font-weight: bold;
-  font-size: 13px;
-}
-
+.exam-item h3 { font-size: 16px; margin: 0 0 8px; }
+.exam-item p { font-size: 14px; line-height: 1.5; margin: 7px 0; }
+.exam-status { font-weight: bold; font-size: 13px; }
 .status-publicado { color: var(--green); }
 .status-rascunho { color: var(--muted); }
-
 [hidden] { display: none !important; }
-
 @media (max-width: 600px) {
-  .header-row {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
+  .header-row { align-items: flex-start; flex-direction: column; }
   .card { padding: 17px; }
   .detail-grid { grid-template-columns: 1fr; }
 }
@@ -223,7 +151,6 @@ th { background: #f7f9fc; }
 </head>
 
 <body>
-
 <header>
   <div class="header-inner header-row">
     <div>
@@ -244,7 +171,7 @@ th { background: #f7f9fc; }
     <section class="card">
       <h2>Cadastrar paciente</h2>
       <p class="muted">
-        Este formulário cadastra o paciente, mas não cria uma conta de acesso ao portal.
+        Cadastre o paciente e crie seu acesso ao portal.
       </p>
 
       <form id="formPaciente">
@@ -255,25 +182,23 @@ th { background: #f7f9fc; }
         <label for="cpf">CPF</label>
         <input id="cpf" inputmode="numeric" maxlength="14"
           required autocomplete="off" placeholder="000.000.000-00">
-<label for="emailPaciente">E-mail do paciente</label>
-<input id="emailPaciente" type="email" maxlength="254"
-  required autocomplete="off" placeholder="paciente@exemplo.com">
 
-<label for="whatsappPaciente">WhatsApp do paciente</label>
-<input id="whatsappPaciente" type="tel" inputmode="tel"
-  required autocomplete="tel" placeholder="(15) 99999-9999">
+        <label for="emailPaciente">E-mail do paciente</label>
+        <input id="emailPaciente" type="email" maxlength="254"
+          required autocomplete="off" placeholder="paciente@exemplo.com">
 
-<p class="muted">
-  Informe o e-mail que o paciente utilizará para entrar no portal.
-  O WhatsApp será usado para enviar o link de criação de senha.
-</p>
+        <label for="whatsappPaciente">WhatsApp do paciente</label>
+        <input id="whatsappPaciente" type="tel" inputmode="tel"
+          required autocomplete="tel" placeholder="(15) 99999-9999">
 
-
-        
+        <p class="muted">
+          Informe o e-mail que o paciente utilizará no portal.
+          O WhatsApp será usado para preparar o envio do link de criação de senha.
+        </p>
 
         <div class="actions">
           <button class="primary" id="salvar" type="submit">
-            Cadastrar paciente
+            Cadastrar paciente e criar acesso
           </button>
           <button class="secondary" id="recarregar" type="button">
             Atualizar lista
@@ -282,14 +207,12 @@ th { background: #f7f9fc; }
       </form>
 
       <p id="mensagem" role="status"></p>
-<div id="linkAcesso" class="actions" hidden></div>
-
+      <div id="linkAcesso" class="actions" hidden></div>
     </section>
 
     <section class="card" id="secaoLista">
       <h2>Pacientes cadastrados</h2>
       <p class="muted">Clique no nome para abrir a ficha e gerenciar os exames.</p>
-
       <div class="table-wrap">
         <table>
           <thead>
@@ -335,9 +258,8 @@ th { background: #f7f9fc; }
 
       <h2>Adicionar exame</h2>
       <p class="muted">
-        Formatos permitidos neste formulário: PDF, JPG, PNG e WEBP.
-        Tamanho máximo definido no formulário: 15 MB.
-        O exame é salvo inicialmente como não publicado.
+        Formatos permitidos: PDF, JPG, PNG e WEBP.
+        Tamanho máximo: 15 MB. O exame começa como não publicado.
       </p>
 
       <form id="formExame">
@@ -368,7 +290,7 @@ th { background: #f7f9fc; }
       <h2>Exames cadastrados</h2>
       <p class="muted">
         Você pode abrir o arquivo, publicar ou retirar a publicação.
-        A publicação no banco não habilita automaticamente o acesso do paciente ao arquivo.
+        A autorização de acesso aos arquivos do paciente precisa estar configurada separadamente.
       </p>
 
       <div id="listaExames">
@@ -382,9 +304,7 @@ th { background: #f7f9fc; }
 import { createClient } from
   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-const SUPABASE_URL =
-  "https://gvmoruslfkbtpsmnbqlu.supabase.co";
-
+const SUPABASE_URL = "https://gvmoruslfkbtpsmnbqlu.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_13EfTkH1D2I9WaDvShy6zg_d5a_KYhu";
 
@@ -421,7 +341,6 @@ let pacienteSelecionado = null;
 
 function formatarCPF(valor) {
   const n = String(valor ?? "").replace(/\D/g, "").slice(0, 11);
-
   return n
     .replace(/^(\d{3})(\d)/, "$1.$2")
     .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
@@ -435,12 +354,9 @@ document.getElementById("cpf").addEventListener("input", e => {
 function validarCPF(cpf) {
   cpf = cpf.replace(/\D/g, "");
 
-  if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
-    return false;
-  }
+  if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
 
   let soma = 0;
-
   for (let i = 0; i < 9; i++) {
     soma += Number(cpf[i]) * (10 - i);
   }
@@ -450,7 +366,6 @@ function validarCPF(cpf) {
   if (digito !== Number(cpf[9])) return false;
 
   soma = 0;
-
   for (let i = 0; i < 10; i++) {
     soma += Number(cpf[i]) * (11 - i);
   }
@@ -463,24 +378,22 @@ function validarCPF(cpf) {
 
 function formatarData(valor) {
   if (!valor) return "—";
-
   const data = new Date(valor);
   if (Number.isNaN(data.getTime())) return "—";
-
   return data.toLocaleDateString("pt-BR");
 }
 
-function mostrarErro(elemento, texto) {
-  elemento.textContent = texto;
-}
-
 async function verificarAcesso() {
+  statusEl.textContent = "Verificando autenticação...";
+
   try {
     const { data, error } = await supabase.auth.getUser();
 
     if (error || !data.user) {
       statusEl.textContent =
         "Faça login pelo portal antes de acessar o painel administrativo.";
+      painel.hidden = true;
+      sair.hidden = true;
       return;
     }
 
@@ -490,14 +403,22 @@ async function verificarAcesso() {
       .eq("id", data.user.id)
       .maybeSingle();
 
+    if (erroPerfil) {
+      console.error("Erro ao consultar perfil:", erroPerfil);
+      statusEl.textContent =
+        "Não foi possível verificar o perfil da equipe. Confira as permissões da tabela perfis no Supabase.";
+      return;
+    }
+
     if (
-      erroPerfil ||
       !perfil ||
       !perfil.ativo ||
       !["medico", "secretaria"].includes(perfil.tipo)
     ) {
       statusEl.textContent =
         "Acesso restrito à equipe autorizada da clínica.";
+      painel.hidden = true;
+      sair.hidden = true;
       return;
     }
 
@@ -511,11 +432,10 @@ async function verificarAcesso() {
     sair.hidden = false;
 
     await carregarPacientes();
-
   } catch (error) {
+    console.error("Erro de autenticação:", error);
     statusEl.textContent =
       "Não foi possível verificar o acesso. Confira a conexão e tente novamente.";
-    console.error(error);
   }
 }
 
@@ -523,7 +443,6 @@ async function carregarPacientes() {
   if (!equipeAutorizada) return;
 
   lista.replaceChildren();
-
   const trCarregando = document.createElement("tr");
   const tdCarregando = document.createElement("td");
   tdCarregando.colSpan = 3;
@@ -545,7 +464,6 @@ async function carregarPacientes() {
     td.textContent = "Não foi possível carregar a lista.";
     tr.appendChild(td);
     lista.appendChild(tr);
-
     mensagem.textContent =
       "Erro ao carregar pacientes. Confira as permissões do banco.";
     console.error(error);
@@ -575,13 +493,11 @@ async function carregarPacientes() {
     botaoNome.className = "patient-link";
     botaoNome.textContent = paciente.nome;
     botaoNome.setAttribute("aria-label", "Abrir ficha do paciente");
-
     botaoNome.addEventListener("click", () => abrirFichaPaciente(paciente));
 
     tdNome.appendChild(botaoNome);
     tdCPF.textContent = formatarCPF(paciente.cpf);
     tdData.textContent = formatarData(paciente.criado_em);
-
     tr.append(tdNome, tdCPF, tdData);
     lista.appendChild(tr);
   }
@@ -591,38 +507,26 @@ async function abrirFichaPaciente(paciente) {
   if (!equipeAutorizada || !paciente) return;
 
   pacienteSelecionado = paciente;
-
-  document.getElementById("detalheNome").textContent =
-    paciente.nome || "—";
-
-  document.getElementById("detalheCPF").textContent =
-    formatarCPF(paciente.cpf);
-
-  document.getElementById("detalheData").textContent =
-    formatarData(paciente.criado_em);
+  document.getElementById("detalheNome").textContent = paciente.nome || "—";
+  document.getElementById("detalheCPF").textContent = formatarCPF(paciente.cpf);
+  document.getElementById("detalheData").textContent = formatarData(paciente.criado_em);
 
   detalhes.hidden = false;
   formExame.reset();
   statusExames.textContent = "";
 
   await carregarExames(paciente.id);
-
-  detalhes.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
+  detalhes.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 document.getElementById("voltarLista").addEventListener("click", () => {
   detalhes.hidden = true;
   pacienteSelecionado = null;
-
   document.getElementById("secaoLista").scrollIntoView({
     behavior: "smooth",
     block: "start"
   });
 });
-
 
 formPaciente.addEventListener("submit", async e => {
   e.preventDefault();
@@ -658,7 +562,8 @@ formPaciente.addEventListener("submit", async e => {
   }
 
   const telefoneValido =
-    (telefone.length === 10 || telefone.length === 11) ||
+    telefone.length === 10 ||
+    telefone.length === 11 ||
     ((telefone.length === 12 || telefone.length === 13) &&
       telefone.startsWith("55"));
 
@@ -671,13 +576,10 @@ formPaciente.addEventListener("submit", async e => {
   salvar.disabled = true;
   salvar.textContent = "Criando acesso...";
 
-  
   try {
     const { data, error } = await supabase.functions.invoke(
       "criar-acesso-paciente",
-      {
-        body: { nome, cpf, email }
-      }
+      { body: { nome, cpf, email } }
     );
 
     if (error || !data?.success || !data?.actionLink) {
@@ -687,24 +589,15 @@ formPaciente.addEventListener("submit", async e => {
         try {
           const resposta = await error.context.json();
           detalhe = resposta?.error || resposta?.message || detalhe;
-        } catch (e) {
-          console.error("Não foi possível ler o erro retornado pela função.");
+        } catch (erroLeitura) {
+          console.error("Não foi possível ler o detalhe retornado pela função.");
         }
       }
 
       console.error("Erro ao criar acesso:", error, data);
       mensagem.textContent =
-        detalhe || `Falha ao criar acesso. ${error?.message || "Consulte os logs da função."}`;
-
-      return;
-    }
-
-
-      console.error("Erro ao criar acesso:", error, data);
-
-      mensagem.textContent = data?.error ||
-        "Não foi possível criar o acesso. Confira a função e os Secrets no Supabase.";
-
+        detalhe ||
+        `Falha ao criar acesso. ${error?.message || "Consulte os logs da função."}`;
       return;
     }
 
@@ -715,7 +608,7 @@ formPaciente.addEventListener("submit", async e => {
     const textoWhatsApp =
       `Olá, ${nome}! A Clínica de Cardiologia Fernando José Secanho ` +
       `preparou seu acesso ao Portal do Paciente. ` +
-      `Para definir sua senha com segurança, abra este link: ${data.actionLink} ` +
+      `Para definir sua senha, abra este link: ${data.actionLink} ` +
       `Se não solicitou esse acesso, entre em contato com a clínica.`;
 
     const linkWhatsApp = document.createElement("a");
@@ -733,8 +626,8 @@ formPaciente.addEventListener("submit", async e => {
     linkAcesso.hidden = false;
 
     mensagem.textContent =
-      `Acesso criado e vinculado para ${data.nome}. ` +
-      `Confira o destinatário e clique no botão para preparar o envio pelo WhatsApp.`;
+      `Acesso criado e vinculado para ${data.nome || nome}. ` +
+      "Confira o destinatário antes de preparar o envio pelo WhatsApp.";
 
     formPaciente.reset();
     await carregarPacientes();
@@ -742,20 +635,18 @@ formPaciente.addEventListener("submit", async e => {
   } catch (error) {
     console.error("Falha na criação do acesso:", error);
     mensagem.textContent =
-      "Erro de conexão ao criar o acesso. Verifique a função no Supabase antes de tentar novamente.";
+      "Erro de conexão ao criar o acesso. Verifique os logs da função no Supabase antes de tentar novamente.";
   } finally {
     salvar.disabled = false;
     salvar.textContent = "Cadastrar paciente e criar acesso";
   }
 });
 
-
 async function carregarExames(pacienteId) {
   if (!equipeAutorizada || !pacienteSelecionado ||
       pacienteSelecionado.id !== pacienteId) return;
 
   listaExames.replaceChildren();
-
   const carregando = document.createElement("p");
   carregando.className = "muted";
   carregando.textContent = "Carregando exames...";
@@ -808,9 +699,7 @@ async function carregarExames(pacienteId) {
     const status = document.createElement("p");
     status.className = "exam-status " +
       (exame.publicado ? "status-publicado" : "status-rascunho");
-    status.textContent = exame.publicado
-      ? "Publicado no cadastro"
-      : "Não publicado";
+    status.textContent = exame.publicado ? "Publicado no cadastro" : "Não publicado";
     item.appendChild(status);
 
     const acoes = document.createElement("div");
@@ -821,16 +710,12 @@ async function carregarExames(pacienteId) {
     abrir.className = "secondary";
     abrir.textContent = "Abrir arquivo";
     abrir.addEventListener("click", () => abrirArquivo(exame));
-
     acoes.appendChild(abrir);
 
     const publicar = document.createElement("button");
     publicar.type = "button";
     publicar.className = exame.publicado ? "danger" : "success";
-    publicar.textContent = exame.publicado
-      ? "Retirar publicação"
-      : "Publicar exame";
-
+    publicar.textContent = exame.publicado ? "Retirar publicação" : "Publicar exame";
     publicar.addEventListener("click", () => alterarPublicacao(exame));
     acoes.appendChild(publicar);
 
@@ -863,14 +748,12 @@ formExame.addEventListener("submit", async e => {
   }
 
   if (arquivo.size <= 0 || arquivo.size > TAMANHO_MAXIMO) {
-    statusExames.textContent =
-      "O arquivo está vazio ou ultrapassa o limite de 15 MB.";
+    statusExames.textContent = "O arquivo está vazio ou ultrapassa o limite de 15 MB.";
     return;
   }
 
   if (!TIPOS_PERMITIDOS.includes(arquivo.type)) {
-    statusExames.textContent =
-      "Formato não permitido. Selecione um PDF, JPG, PNG ou WEBP.";
+    statusExames.textContent = "Formato não permitido. Selecione PDF, JPG, PNG ou WEBP.";
     return;
   }
 
@@ -888,8 +771,6 @@ formExame.addEventListener("submit", async e => {
       return;
     }
 
-    // A pasta inicial usa o ID do cadastro do paciente.
-    // O acesso aos arquivos do paciente ainda será configurado separadamente.
     const nomeSeguro = arquivo.name
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -929,7 +810,6 @@ formExame.addEventListener("submit", async e => {
     if (erroCadastro) {
       console.error(erroCadastro);
 
-      // Tenta remover o arquivo se não foi possível cadastrar o exame.
       const { error: erroRemocao } = await supabase.storage
         .from(BUCKET_EXAMES)
         .remove([caminhoArquivo]);
@@ -944,16 +824,13 @@ formExame.addEventListener("submit", async e => {
     }
 
     formExame.reset();
-    statusExames.textContent =
-      "Exame cadastrado como não publicado.";
-
+    statusExames.textContent = "Exame cadastrado como não publicado.";
     await carregarExames(pacienteSelecionado.id);
 
   } catch (error) {
     console.error(error);
     statusExames.textContent =
       "Ocorreu um erro ao enviar o exame. Confira a conexão e tente novamente.";
-
   } finally {
     enviarExame.disabled = false;
     enviarExame.textContent = "Enviar exame";
@@ -1009,24 +886,19 @@ async function alterarPublicacao(exame) {
       .eq("id", exame.id)
       .eq("paciente_id", pacienteSelecionado.id);
 
+    if (error) {
+      console.error("Erro ao publicar exame:", error);
+      statusExames.textContent =
+        "Erro ao publicar: " + (error.message || "Erro desconhecido") +
+        (error.code ? " (código: " + error.code + ")" : "");
 
-if (error) {
-  console.error("Erro ao publicar exame:", error);
-
-  statusExames.textContent =
-    "Erro ao publicar: " +
-    (error.message || "Erro desconhecido") +
-    (error.code ? " (código: " + error.code + ")" : "");
-
-  alert(
-    "Erro ao publicar exame:\n" +
-    (error.message || "Erro desconhecido") +
-    (error.code ? "\nCódigo: " + error.code : "")
-  );
-
-  return;
-}
-
+      alert(
+        "Erro ao publicar exame:\n" +
+        (error.message || "Erro desconhecido") +
+        (error.code ? "\nCódigo: " + error.code : "")
+      );
+      return;
+    }
 
     statusExames.textContent = novoEstado
       ? "Exame marcado como publicado no cadastro."
@@ -1051,6 +923,5 @@ sair.addEventListener("click", async () => {
 
 verificarAcesso();
 </script>
-
 </body>
 </html>
