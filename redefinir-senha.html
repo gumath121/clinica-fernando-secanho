@@ -189,9 +189,12 @@
         await supabase.auth.signOut();
         mostrar("Senha criada com sucesso! Você será encaminhado ao login.", "sucesso");
 
-        setTimeout(() => {
-          window.location.href = "login.html";
-        }, 1800);
+        
+setTimeout(() => {
+  window.location.href =
+    "https://gumath121.github.io/clinica-fernando-secanho/portal.html";
+}, 1800);
+
       } catch {
         mostrar("Ocorreu um erro inesperado. Solicite ajuda à clínica.", "erro");
       } finally {
