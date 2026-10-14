@@ -310,6 +310,41 @@
       </div>
     </section>
 
+<section class="panel hidden" id="passwordSetupPanel">
+  <h2>Crie sua senha</h2>
+  <p class="help">
+    Para concluir seu primeiro acesso, crie uma senha pessoal com pelo menos 8 caracteres.
+  </p>
+
+  <form id="passwordSetupForm">
+    <label for="newPassword">Nova senha</label>
+    <input
+      id="newPassword"
+      type="password"
+      autocomplete="new-password"
+      minlength="8"
+      placeholder="Digite sua nova senha"
+      required
+    >
+
+    <label for="confirmPassword">Confirme a nova senha</label>
+    <input
+      id="confirmPassword"
+      type="password"
+      autocomplete="new-password"
+      minlength="8"
+      placeholder="Digite a senha novamente"
+      required
+    >
+
+    <button id="savePasswordButton" type="submit">
+      Salvar minha senha
+    </button>
+  </form>
+
+  <div id="passwordSetupMessage" class="message" role="status" aria-live="polite"></div>
+</section>
+
     <section class="panel hidden" id="patientPanel">
       <h2>Meus exames</h2>
       <p class="help">Você está autenticado no portal.</p>
