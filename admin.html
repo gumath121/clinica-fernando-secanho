@@ -255,6 +255,21 @@ th { background: #f7f9fc; }
         <label for="cpf">CPF</label>
         <input id="cpf" inputmode="numeric" maxlength="14"
           required autocomplete="off" placeholder="000.000.000-00">
+<label for="emailPaciente">E-mail do paciente</label>
+<input id="emailPaciente" type="email" maxlength="254"
+  required autocomplete="off" placeholder="paciente@exemplo.com">
+
+<label for="whatsappPaciente">WhatsApp do paciente</label>
+<input id="whatsappPaciente" type="tel" inputmode="tel"
+  required autocomplete="tel" placeholder="(15) 99999-9999">
+
+<p class="muted">
+  Informe o e-mail que o paciente utilizará para entrar no portal.
+  O WhatsApp será usado para enviar o link de criação de senha.
+</p>
+
+
+        
 
         <div class="actions">
           <button class="primary" id="salvar" type="submit">
@@ -267,6 +282,8 @@ th { background: #f7f9fc; }
       </form>
 
       <p id="mensagem" role="status"></p>
+<div id="linkAcesso" class="actions" hidden></div>
+
     </section>
 
     <section class="card" id="secaoLista">
@@ -606,9 +623,14 @@ document.getElementById("voltarLista").addEventListener("click", () => {
   });
 });
 
+
 formPaciente.addEventListener("submit", async e => {
   e.preventDefault();
+
   mensagem.textContent = "";
+  const linkAcesso = document.getElementById("linkAcesso");
+  linkAcesso.replaceChildren();
+  linkAcesso.hidden = true;
 
   if (!equipeAutorizada) {
     mensagem.textContent = "Acesso não autorizado.";
@@ -617,6 +639,8 @@ formPaciente.addEventListener("submit", async e => {
 
   const nome = document.getElementById("nome").value.trim();
   const cpf = document.getElementById("cpf").value.replace(/\D/g, "");
+  const email = document.getElementById("emailPaciente").value.trim().toLowerCase();
+  const telefone = document.getElementById("whatsappPaciente").value.replace(/\D/g, "");
 
   if (nome.length < 3) {
     mensagem.textContent = "Informe o nome completo do paciente.";
@@ -624,41 +648,87 @@ formPaciente.addEventListener("submit", async e => {
   }
 
   if (!validarCPF(cpf)) {
+    mensagem.textContent = "Confira o CPF informado. Use dados fictícios nos testes.";
+    return;
+  }
+
+  if (!email || !email.includes("@")) {
+    mensagem.textContent = "Informe um e-mail válido.";
+    return;
+  }
+
+  const telefoneValido =
+    (telefone.length === 10 || telefone.length === 11) ||
+    ((telefone.length === 12 || telefone.length === 13) &&
+      telefone.startsWith("55"));
+
+  if (!telefoneValido) {
     mensagem.textContent =
-      "Confira o CPF informado. Para testes, use somente dados fictícios.";
+      "Informe um WhatsApp válido com DDD, incluindo o código 55 se necessário.";
     return;
   }
 
   salvar.disabled = true;
-  salvar.textContent = "Salvando...";
+  salvar.textContent = "Criando acesso...";
 
   try {
-    const { error } = await supabase
-      .from("pacientes")
-      .insert({ nome, cpf, usuario_id: null });
+    const { data, error } = await supabase.functions.invoke(
+      "criar-acesso-paciente",
+      {
+        body: { nome, cpf, email }
+      }
+    );
 
-    if (error) {
-      mensagem.textContent = error.code === "23505"
-        ? "Já existe um cadastro com esse CPF."
-        : "Não foi possível cadastrar. Confira as permissões do banco.";
+    if (error || !data?.success || !data?.actionLink) {
+      console.error("Erro ao criar acesso:", error, data);
 
-      console.error(error);
+      mensagem.textContent = data?.error ||
+        "Não foi possível criar o acesso. Confira a função e os Secrets no Supabase.";
+
       return;
     }
 
+    const numeroWhatsApp = telefone.startsWith("55")
+      ? telefone
+      : `55${telefone}`;
+
+    const textoWhatsApp =
+      `Olá, ${nome}! A Clínica de Cardiologia Fernando José Secanho ` +
+      `preparou seu acesso ao Portal do Paciente. ` +
+      `Para definir sua senha com segurança, abra este link: ${data.actionLink} ` +
+      `Se não solicitou esse acesso, entre em contato com a clínica.`;
+
+    const linkWhatsApp = document.createElement("a");
+    linkWhatsApp.href =
+      `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoWhatsApp)}`;
+    linkWhatsApp.target = "_blank";
+    linkWhatsApp.rel = "noopener noreferrer";
+    linkWhatsApp.className = "primary";
+    linkWhatsApp.style.cssText =
+      "display:inline-block;padding:12px 16px;border-radius:7px;" +
+      "color:white;text-decoration:none;font-weight:bold;";
+    linkWhatsApp.textContent = "Abrir WhatsApp para enviar o acesso";
+
+    linkAcesso.appendChild(linkWhatsApp);
+    linkAcesso.hidden = false;
+
+    mensagem.textContent =
+      `Acesso criado e vinculado para ${data.nome}. ` +
+      `Confira o destinatário e clique no botão para preparar o envio pelo WhatsApp.`;
+
     formPaciente.reset();
-    mensagem.textContent = "Paciente cadastrado com sucesso.";
     await carregarPacientes();
 
   } catch (error) {
-    mensagem.textContent = "Erro de conexão ao cadastrar o paciente.";
-    console.error(error);
-
+    console.error("Falha na criação do acesso:", error);
+    mensagem.textContent =
+      "Erro de conexão ao criar o acesso. Verifique a função no Supabase antes de tentar novamente.";
   } finally {
     salvar.disabled = false;
-    salvar.textContent = "Cadastrar paciente";
+    salvar.textContent = "Cadastrar paciente e criar acesso";
   }
 });
+
 
 async function carregarExames(pacienteId) {
   if (!equipeAutorizada || !pacienteSelecionado ||
