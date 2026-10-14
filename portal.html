@@ -531,10 +531,20 @@
             .createSignedUrl(exam.caminho_arquivo, 60);
 
           if (error || !data?.signedUrl) {
-            link.textContent = "Não foi possível abrir o arquivo";
-            link.removeAttribute("aria-disabled");
-            return;
-          }
+  console.error("Erro ao gerar link do exame:", error);
+  console.error("Caminho do arquivo:", exam.caminho_arquivo);
+
+  link.textContent = "Não foi possível abrir o arquivo";
+  link.removeAttribute("aria-disabled");
+
+  showMessage(
+    patientMessage,
+    "Não foi possível abrir o exame. Consulte o erro técnico no console do navegador.",
+    "error"
+  );
+
+  return;
+}
 
           // Link temporário, válido por 60 segundos.
           window.open(data.signedUrl, "_blank", "noopener,noreferrer");
