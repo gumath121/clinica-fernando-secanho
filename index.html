@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102a43">
+  <meta name="description" content="Clínica de Cardiologia Fernando José Secanho. Cuidado cardiovascular, atendimento especializado e acesso ao portal de exames.">
+  <title>Clínica de Cardiologia Fernando José Secanho</title>
+
+  <style>
+    :root {
+      --navy: #102a43;
+      --blue: #1769aa;
+      --red: #d62839;
+      --light: #f4f7fb;
+      --text: #263746;
+      --muted: #657789;
+      --white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1160px, 90%);
+      margin: auto;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid #e7edf3;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+    }
+
+    .brand-text strong {
+      display: block;
+      color: var(--navy);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .brand-text span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: var(--blue);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 20px;
+      border-radius: 7px;
+      font-weight: 700;
+      font-size: 14px;
+      border: 0;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: #b91e2c;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,.7);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,.12);
+    }
+
+    .hero {
+      background: linear-gradient(110deg, #102a43 0%, #173f61 70%, #1c527a 100%);
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      min-height: 540px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 50px;
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    .eyebrow {
+      color: #f3a3aa;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 4vw, 51px);
+      line-height: 1.12;
+      letter-spacing: -1px;
+      margin-bottom: 22px;
+    }
+
+    .hero-copy {
+      color: #e0eaf2;
+      font-size: 17px;
+      max-width: 510px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-image {
+      height: 410px;
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 20px 55px rgba(0,0,0,.22);
+    }
+
+    .image-caption {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      padding: 14px 17px;
+      background: rgba(16,42,67,.92);
+      color: white;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .section {
+      padding: 82px 0;
+    }
+
+    .section-light {
+      background: var(--light);
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 42px;
+    }
+
+    .section-heading .eyebrow {
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: var(--navy);
+      font-size: clamp(27px, 3vw, 36px);
+      line-height: 1.2;
+      margin-bottom: 15px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      padding: 30px 25px;
+      background: var(--white);
+      border: 1px solid #e4eaf0;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(16,42,67,.04);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: #e7f1fb;
+      color: var(--blue);
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      color: var(--navy);
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 55px;
+    }
+
+    .about-image img {
+      display: block;
+      width: 100%;
+      max-height: 440px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 17px;
+    }
+
+    .about-text .btn {
+      margin-top: 10px;
+    }
+
+    .portal {
+      background: linear-gradient(120deg, #102a43, #174d75);
+      color: white;
+      border-radius: 16px;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .portal h2 {
+      color: white;
+    }
+
+    .portal p {
+      color: #dbe7f1;
+      max-width: 620px;
+    }
+
+    .portal .eyebrow {
+      margin-bottom: 10px;
+    }
+
+    .contact-box {
+      max-width: 760px;
+      margin: auto;
+      background: white;
+      border: 1px solid #e4eaf0;
+      border-radius: 12px;
+      padding: 35px;
+      text-align: center;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin: 10px 0 22px;
+    }
+
+    footer {
+      background: #0a1e30;
+      color: #dbe5ed;
+      padding: 32px 0;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    footer img {
+      width: 68px;
+      height: 68px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: #aebdca;
+    }
+
+    @media (max-width: 900px) {
+      .header-content {
+        padding: 12px 0;
+        flex-wrap: wrap;
+      }
+
+      nav {
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .hero-image {
+        height: 350px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .portal {
+        grid-template-columns: 1fr;
+        padding: 35px;
+      }
+
+      .about-grid {
+        gap: 30px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: 91%;
+      }
+
+      .header-content {
+        justify-content: center;
+      }
+
+      .brand img {
+        width: 58px;
+        height: 58px;
+      }
+
+      .brand-text strong {
+        font-size: 13px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: center;
+        gap: 12px 18px;
+        font-size: 12px;
+      }
+
+      nav .btn {
+        padding: 10px 12px;
+        font-size: 12px;
+      }
+
+      .hero-grid {
+        padding-top: 48px;
+        padding-bottom: 45px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      .hero-copy {
+        font-size: 15px;
+      }
+
+      .hero-image {
+        height: 270px;
+      }
+
+      .section {
+        padding: 58px 0;
+      }
+
+      .cards,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-image {
+        order: 2;
+      }
+
+      .portal {
+        padding: 28px 22px;
+      }
+
+      .contact-box {
+        padding: 27px 20px;
+      }
+
+      .btn {
+        padding: 12px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container header-content">
+      <a class="brand" href="#inicio" aria-label="Página inicial">
+        <img src="logo.png" alt="Logotipo da Clínica Fernando José Secanho">
+        <div class="brand-text">
+          <strong>Clínica de Cardiologia<br>Fernando José Secanho</strong>
+          <span>Cuidado e atenção à saúde do coração</span>
+        </div>
+      </a>
+
+      <nav aria-label="Navegação principal">
+        <a href="#inicio">Início</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#clinica">A clínica</a>
+        <a href="#contato">Contato</a>
+        <a class="btn btn-primary" href="#portal">Portal de exames</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Cardiologia e cuidado especializado</div>
+          <h1>Seu coração merece atenção em cada etapa da vida.</h1>
+          <p class="hero-copy">
+            Cuidado cardiovascular com atenção, responsabilidade e
+            compromisso com a sua saúde.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contato" class="btn btn-primary">Informações de atendimento</a>
+            <a href="#portal" class="btn btn-outline">Acessar exames</a>
+          </div>
+        </div>
+
+        <div class="hero-image">
+          <img src="fachada.png" alt="Fachada da Clínica de Cardiologia Fernando José Secanho">
+          <div class="image-caption">
+            Clínica de Cardiologia Fernando José Secanho
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="servicos">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Nosso atendimento</div>
+          <h2>Cuidado cardiovascular com atenção individualizada</h2>
+          <p>
+            Um espaço dedicado ao acompanhamento da saúde do coração,
+            com foco na prevenção, avaliação e cuidado contínuo.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">♡</div>
+            <h3>Consulta cardiológica</h3>
+            <p>
+              Avaliação médica e acompanhamento da saúde cardiovascular,
+              conforme as necessidades de cada paciente.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">⌁</div>
+            <h3>Prevenção cardiovascular</h3>
+            <p>
+              Orientação médica para prevenção e acompanhamento dos
+              fatores de risco relacionados à saúde do coração.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">▤</div>
+            <h3>Portal de exames</h3>
+            <p>
+              Área digital destinada ao acesso aos exames disponibilizados
+              pela clínica, mediante autenticação segura.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-light" id="clinica">
+      <div class="container about-grid">
+        <div class="about-image">
+          <img src="fachada.png" alt="Instalações da clínica">
+        </div>
+
+        <div class="about-text">
+          <div class="eyebrow">Conheça nossa clínica</div>
+          <h2>Atendimento com confiança e responsabilidade</h2>
+          <p>
+            A Clínica de Cardiologia Fernando José Secanho tem como
+            objetivo oferecer um atendimento voltado ao cuidado
+            cardiovascular e à atenção às necessidades de cada paciente.
+          </p>
+          <p>
+            Neste espaço você poderá encontrar informações sobre a clínica
+            e acessar o portal de exames disponibilizados pela equipe.
+          </p>
+          <a href="#contato" class="btn btn-primary">Informações de contato</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="portal">
+      <div class="container">
+        <div class="portal">
+          <div>
+            <div class="eyebrow">Acesso restrito</div>
+            <h2>Portal de exames</h2>
+            <p>
+              Consulte os exames disponibilizados pela clínica em um
+              ambiente com acesso individual e protegido.
+            </p>
+          </div>
+
+          <div>
+            <a class="btn btn-primary" href="portal.html">
+              Entrar no portal
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-light" id="contato">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Estamos à disposição</div>
+          <h2>Entre em contato com a clínica</h2>
+          <p>
+            Para confirmar horários, agendamentos e informações sobre
+            consultas, utilize os canais oficiais da clínica.
+          </p>
+        </div>
+
+        <div class="contact-box">
+          <h3>Clínica de Cardiologia Fernando José Secanho</h3>
+          <p>
+            Os dados de telefone, endereço e horário de atendimento
+            serão adicionados após a confirmação das informações oficiais.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <img src="logo.png" alt="Logotipo da clínica">
+      <p><strong>Clínica de Cardiologia Fernando José Secanho</strong></p>
+      <p>Cuidado cardiovascular e atenção à saúde.</p>
+      <p class="footer-note">
+        © <span id="ano"></span> Clínica de Cardiologia Fernando José Secanho.
+        Todos os direitos reservados.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("ano").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
