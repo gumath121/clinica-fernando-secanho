@@ -1,0 +1,640 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102b4e">
+  <title>Portal de Exames | Clínica Fernando José Secanho</title>
+  <meta name="description" content="Portal seguro de acesso a exames da Clínica de Cardiologia Fernando José Secanho.">
+
+  <style>
+    :root {
+      --navy: #102b4e;
+      --blue: #1769aa;
+      --light: #f2f6fa;
+      --text: #233247;
+      --muted: #64748b;
+      --border: #dce5ee;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--light);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 6%;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+    }
+
+    .brand-name {
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 17px;
+      line-height: 1.4;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1100px;
+      margin: auto;
+      padding: 42px 20px;
+      flex: 1;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .intro h1 {
+      color: var(--navy);
+      font-size: clamp(25px, 4vw, 36px);
+      margin: 0 0 12px;
+    }
+
+    .intro p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .panel {
+      max-width: 480px;
+      margin: auto;
+      padding: 30px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 12px 36px rgba(16, 43, 78, .07);
+    }
+
+    .panel h2 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 23px;
+    }
+
+    .help {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0 0 24px;
+    }
+
+    label {
+      display: block;
+      margin: 17px 0 7px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      font: inherit;
+      background: white;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(23, 105, 170, .12);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--navy);
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover { background: var(--blue); }
+    button:disabled { opacity: .6; cursor: wait; }
+
+    .secondary {
+      color: var(--blue);
+      background: transparent;
+      padding: 8px 0;
+      margin-top: 12px;
+    }
+
+    .secondary:hover {
+      color: var(--navy);
+      background: transparent;
+      text-decoration: underline;
+    }
+
+    .message {
+      display: none;
+      padding: 12px;
+      margin-top: 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .message.show { display: block; }
+    .message.error { background: #fff0f0; color: #a32121; }
+    .message.success { background: #eaf7ef; color: #17643a; }
+    .message.info { background: #edf5ff; color: #174e86; }
+
+    .privacy-note {
+      margin-top: 20px;
+      padding: 13px;
+      border-radius: 9px;
+      background: #f3f7fb;
+      color: #53657a;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .hidden { display: none !important; }
+
+    .exam {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+
+    .exam h3 {
+      margin: 0 0 7px;
+      color: var(--navy);
+      font-size: 16px;
+    }
+
+    .exam p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .exam a {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .account-line {
+      color: var(--muted);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+      margin: 12px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 22px 15px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      background: white;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 520px) {
+      header { padding: 12px 16px; }
+      .logo { width: 58px; height: 58px; }
+      .brand-name { font-size: 14px; }
+      main { padding: 30px 14px; }
+      .panel { padding: 22px 18px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <img
+        class="logo"
+        src="logo.png"
+        alt="Logotipo da Clínica Fernando José Secanho"
+        onerror="this.style.display='none'"
+      >
+      <div>
+        <div class="brand-name">
+          Clínica de Cardiologia<br>
+          Fernando José Secanho
+        </div>
+        <div class="brand-subtitle">Portal de exames e resultados</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="intro">
+      <h1>Portal do Paciente</h1>
+      <p>Acesse sua conta para consultar os exames disponibilizados pela clínica.</p>
+    </div>
+
+    <section class="panel" id="loginPanel">
+      <h2>Entrar na sua conta</h2>
+      <p class="help">
+        Utilize o e-mail e a senha cadastrados pela clínica.
+      </p>
+
+      <form id="loginForm">
+        <label for="email">E-mail</label>
+        <input
+          id="email"
+          type="email"
+          autocomplete="username"
+          placeholder="seuemail@exemplo.com"
+          required
+        >
+
+        <label for="password">Senha</label>
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          placeholder="Digite sua senha"
+          required
+          minlength="8"
+        >
+
+        <button id="loginButton" type="submit">Entrar no portal</button>
+      </form>
+
+      <button class="secondary" id="forgotButton" type="button">
+        Esqueci minha senha
+      </button>
+
+      <div id="loginMessage" class="message" role="status" aria-live="polite"></div>
+
+      <div class="privacy-note">
+        <strong>Privacidade:</strong> nunca compartilhe sua senha.
+        Se precisar de ajuda com seu acesso, entre em contato com a secretaria da clínica.
+      </div>
+    </section>
+
+    <section class="panel hidden" id="patientPanel">
+      <h2>Meus exames</h2>
+      <p class="help">Você está autenticado no portal.</p>
+      <p id="accountEmail" class="account-line"></p>
+      <div id="patientMessage" class="message" role="status" aria-live="polite"></div>
+      <div id="examsList"></div>
+      <button id="refreshButton" type="button">Atualizar exames</button>
+      <button id="logoutButton" type="button">Sair da conta</button>
+    </section>
+  </main>
+
+  <footer>
+    Clínica de Cardiologia Fernando José Secanho<br>
+    Portal de acesso restrito. Utilize apenas sua própria conta.
+  </footer>
+
+  <script type="module">
+    import { createClient } from
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+    // CONFIGURE estes dois valores com os dados do seu projeto Supabase.
+    // Use somente a URL do projeto e a chave publicável (sb_publishable_...)
+    // ou a chave anon legada. NUNCA use service_role ou sb_secret_ aqui.
+    const SUPABASE_URL = "COLE_A_URL_DO_SEU_PROJETO";
+    const SUPABASE_PUBLISHABLE_KEY = "COLE_SUA_CHAVE_PUBLICAVEL";
+
+    const loginPanel = document.getElementById("loginPanel");
+    const patientPanel = document.getElementById("patientPanel");
+    const loginForm = document.getElementById("loginForm");
+    const loginButton = document.getElementById("loginButton");
+    const loginMessage = document.getElementById("loginMessage");
+    const patientMessage = document.getElementById("patientMessage");
+    const examsList = document.getElementById("examsList");
+
+    let supabase = null;
+    let configurationError = false;
+
+    function showMessage(element, text, type = "info") {
+      element.textContent = text;
+      element.className = `message show ${type}`;
+    }
+
+    function clearMessage(element) {
+      element.textContent = "";
+      element.className = "message";
+    }
+
+    function initializeSupabase() {
+      if (
+        SUPABASE_URL.includes("COLE_A_URL") ||
+        SUPABASE_PUBLISHABLE_KEY.includes("COLE_SUA_CHAVE")
+      ) {
+        configurationError = true;
+        showMessage(
+          loginMessage,
+          "O portal ainda precisa ser conectado ao Supabase. Configure a URL e a chave publicável no código.",
+          "info"
+        );
+        loginButton.disabled = true;
+        return false;
+      }
+
+      try {
+        supabase = createClient(
+          SUPABASE_URL,
+          SUPABASE_PUBLISHABLE_KEY,
+          {
+            auth: {
+              persistSession: true,
+              autoRefreshToken: true,
+              detectSessionInUrl: true
+            }
+          }
+        );
+        return true;
+      } catch {
+        showMessage(loginMessage, "Não foi possível iniciar o portal.", "error");
+        return false;
+      }
+    }
+
+    async function loadExams(user) {
+      clearMessage(patientMessage);
+      examsList.replaceChildren();
+
+      showMessage(patientMessage, "Carregando seus exames...", "info");
+
+      // Confere o perfil associado à conta autenticada.
+      const { data: profile, error: profileError } = await supabase
+        .from("perfis")
+        .select("nome, tipo, ativo")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (profileError || !profile || !profile.ativo) {
+        showMessage(
+          patientMessage,
+          "O acesso ainda não está habilitado para esta conta. Entre em contato com a secretaria da clínica.",
+          "error"
+        );
+        return;
+      }
+
+      if (profile.tipo !== "paciente") {
+        showMessage(
+          patientMessage,
+          "Esta conta não está cadastrada como paciente. O painel da equipe será configurado separadamente.",
+          "info"
+        );
+        return;
+      }
+
+      // A política RLS deve garantir que a conta só veja o próprio cadastro.
+      const { data: patient, error: patientError } = await supabase
+        .from("pacientes")
+        .select("id")
+        .eq("usuario_id", user.id)
+        .maybeSingle();
+
+      if (patientError || !patient) {
+        showMessage(
+          patientMessage,
+          "Não encontramos um cadastro de paciente vinculado a esta conta. Entre em contato com a clínica.",
+          "error"
+        );
+        return;
+      }
+
+      const { data: exams, error: examsError } = await supabase
+        .from("exames")
+        .select("id, titulo, descricao, caminho_arquivo, criado_em")
+        .eq("paciente_id", patient.id)
+        .eq("publicado", true)
+        .order("criado_em", { ascending: false });
+
+      if (examsError) {
+        showMessage(
+          patientMessage,
+          "Não foi possível carregar os exames. Tente novamente mais tarde.",
+          "error"
+        );
+        return;
+      }
+
+      clearMessage(patientMessage);
+
+      if (!exams || exams.length === 0) {
+        showMessage(
+          patientMessage,
+          "Você ainda não possui exames publicados para consulta.",
+          "info"
+        );
+        return;
+      }
+
+      for (const exam of exams) {
+        const card = document.createElement("article");
+        card.className = "exam";
+
+        const title = document.createElement("h3");
+        title.textContent = exam.titulo || "Exame";
+
+        const description = document.createElement("p");
+        description.textContent = exam.descricao || "Resultado disponibilizado pela clínica.";
+
+        card.append(title, description);
+
+        const link = document.createElement("a");
+        link.href = "#";
+        link.textContent = "Abrir exame";
+        link.addEventListener("click", async (event) => {
+          event.preventDefault();
+          link.textContent = "Abrindo...";
+          link.setAttribute("aria-disabled", "true");
+
+          // Os arquivos devem estar em bucket privado e protegidos por RLS.
+          const { data, error } = await supabase.storage
+            .from("exames-clinica")
+            .createSignedUrl(exam.caminho_arquivo, 60);
+
+          if (error || !data?.signedUrl) {
+            link.textContent = "Não foi possível abrir o arquivo";
+            link.removeAttribute("aria-disabled");
+            return;
+          }
+
+          // Link temporário, válido por 60 segundos.
+          window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+          link.textContent = "Abrir exame";
+          link.removeAttribute("aria-disabled");
+        });
+
+        card.append(link);
+        examsList.append(card);
+      }
+    }
+
+    async function showSession(user) {
+      loginPanel.classList.add("hidden");
+      patientPanel.classList.remove("hidden");
+      document.getElementById("accountEmail").textContent =
+        `Conta: ${user.email || "usuário autenticado"}`;
+      await loadExams(user);
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearMessage(loginMessage);
+
+      if (configurationError || !supabase) {
+        showMessage(loginMessage, "A configuração do Supabase está incompleta.", "error");
+        return;
+      }
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      loginButton.disabled = true;
+      loginButton.textContent = "Verificando acesso...";
+
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error || !data.user) {
+          showMessage(
+            loginMessage,
+            "Não foi possível entrar. Confira seus dados ou solicite ajuda à secretaria.",
+            "error"
+          );
+          return;
+        }
+
+        await showSession(data.user);
+      } catch {
+        showMessage(
+          loginMessage,
+          "Não foi possível conectar ao serviço de autenticação. Tente novamente.",
+          "error"
+        );
+      } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = "Entrar no portal";
+      }
+    });
+
+    document.getElementById("forgotButton").addEventListener("click", async () => {
+      clearMessage(loginMessage);
+
+      if (!supabase) {
+        showMessage(loginMessage, "Configure o Supabase antes de solicitar a recuperação.", "error");
+        return;
+      }
+
+      const email = document.getElementById("email").value.trim();
+
+      if (!email) {
+        showMessage(
+          loginMessage,
+          "Digite seu e-mail no campo acima e depois clique em Esqueci minha senha.",
+          "info"
+        );
+        document.getElementById("email").focus();
+        return;
+      }
+
+      try {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}${window.location.pathname}`
+        });
+
+        if (error) {
+          showMessage(
+            loginMessage,
+            "Não foi possível solicitar a recuperação. Entre em contato com a secretaria.",
+            "error"
+          );
+          return;
+        }
+
+        showMessage(
+          loginMessage,
+          "Se o e-mail estiver cadastrado, você receberá instruções para recuperar o acesso. Confira também a caixa de spam.",
+          "success"
+        );
+      } catch {
+        showMessage(loginMessage, "Falha ao solicitar a recuperação de senha.", "error");
+      }
+    });
+
+    document.getElementById("refreshButton").addEventListener("click", async () => {
+      if (!supabase) return;
+
+      const { data } = await supabase.auth.getUser();
+
+      if (data.user) {
+        await loadExams(data.user);
+      } else {
+        patientPanel.classList.add("hidden");
+        loginPanel.classList.remove("hidden");
+      }
+    });
+
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+      if (supabase) {
+        await supabase.auth.signOut();
+      }
+
+      patientPanel.classList.add("hidden");
+      loginPanel.classList.remove("hidden");
+      loginForm.reset();
+      clearMessage(loginMessage);
+      clearMessage(patientMessage);
+      examsList.replaceChildren();
+    });
+
+    if (initializeSupabase()) {
+      const { data } = await supabase.auth.getSession();
+
+      if (data.session?.user) {
+        await showSession(data.session.user);
+      }
+    }
+  </script>
+</body>
+</html>
