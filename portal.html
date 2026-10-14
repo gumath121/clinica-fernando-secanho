@@ -730,7 +730,16 @@ passwordSetupForm.addEventListener("submit", async (event) => {
     patientPanel.classList.add("hidden");
 
     await supabase.auth.signOut();
-    window.history.replaceState({}, document.title, window.location.pathname);
+
+window.history.replaceState(
+  {},
+  document.title,
+  window.location.pathname
+);
+
+loginPanel.classList.remove("hidden");
+patientPanel.classList.add("hidden");
+passwordSetupPanel.classList.add("hidden");
   } catch {
     showMessage(passwordSetupMessage, "Falha ao salvar a senha. Tente novamente.", "error");
   } finally {
