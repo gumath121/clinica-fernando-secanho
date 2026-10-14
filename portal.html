@@ -372,6 +372,11 @@
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_13EfTkH1D2I9WaDvShy6zg_d5a_KYhu";;
 
     const loginPanel = document.getElementById("loginPanel");
+    const passwordSetupPanel = document.getElementById("passwordSetupPanel");
+    const passwordSetupForm = document.getElementById("passwordSetupForm");
+    const savePasswordButton = document.getElementById("savePasswordButton");
+    const passwordSetupMessage = document.getElementById("passwordSetupMessage");
+    let passwordRecoveryMode = false;
     const patientPanel = document.getElementById("patientPanel");
     const loginForm = document.getElementById("loginForm");
     const loginButton = document.getElementById("loginButton");
@@ -663,13 +668,94 @@
       examsList.replaceChildren();
     });
 
-    if (initializeSupabase()) {
-      const { data } = await supabase.auth.getSession();
+    
+passwordSetupForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  clearMessage(passwordSetupMessage);
 
-      if (data.session?.user) {
-        await showSession(data.session.user);
-      }
+  const password = document.getElementById("newPassword").value;
+  const confirmation = document.getElementById("confirmPassword").value;
+
+  if (password.length < 8) {
+    showMessage(passwordSetupMessage, "A senha deve ter pelo menos 8 caracteres.", "error");
+    return;
+  }
+
+  if (password !== confirmation) {
+    showMessage(passwordSetupMessage, "As senhas não coincidem.", "error");
+    return;
+  }
+
+  if (!supabase) {
+    showMessage(passwordSetupMessage, "Não foi possível conectar ao serviço.", "error");
+    return;
+  }
+
+  savePasswordButton.disabled = true;
+  savePasswordButton.textContent = "Salvando senha...";
+
+  try {
+    const { data, error } = await supabase.auth.updateUser({ password });
+
+    if (error || !data.user) {
+      showMessage(
+        passwordSetupMessage,
+        "Não foi possível salvar a senha. Solicite um novo link à clínica.",
+        "error"
+      );
+      return;
     }
+
+    passwordRecoveryMode = false;
+    passwordSetupForm.reset();
+    passwordSetupPanel.classList.add("hidden");
+
+    showMessage(
+      loginMessage,
+      "Senha criada com sucesso! Entre no portal usando seu e-mail e a nova senha.",
+      "success"
+    );
+
+    loginPanel.classList.remove("hidden");
+    patientPanel.classList.add("hidden");
+
+    await supabase.auth.signOut();
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } catch {
+    showMessage(passwordSetupMessage, "Falha ao salvar a senha. Tente novamente.", "error");
+  } finally {
+    savePasswordButton.disabled = false;
+    savePasswordButton.textContent = "Salvar minha senha";
+  }
+});
+
+if (initializeSupabase()) {
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    if (event === "PASSWORD_RECOVERY") {
+      passwordRecoveryMode = true;
+      loginPanel.classList.add("hidden");
+      patientPanel.classList.add("hidden");
+      passwordSetupPanel.classList.remove("hidden");
+      clearMessage(passwordSetupMessage);
+    }
+  });
+
+  const { data } = await supabase.auth.getSession();
+
+  if (data.session?.user) {
+    const hasRecoveryHash =
+      window.location.hash.includes("type=recovery");
+
+    if (hasRecoveryHash || passwordRecoveryMode) {
+      passwordSetupPanel.classList.remove("hidden");
+      loginPanel.classList.add("hidden");
+      patientPanel.classList.add("hidden");
+    } else {
+      await showSession(data.session.user);
+    }
+  }
+}
+
   </script>
 </body>
 </html>
