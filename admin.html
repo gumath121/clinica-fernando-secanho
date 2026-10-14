@@ -14,6 +14,8 @@
   --text: #24364b;
   --muted: #68788a;
   --border: #dce4ec;
+  --green: #18794e;
+  --red: #b42318;
 }
 * { box-sizing: border-box; }
 
@@ -69,12 +71,18 @@ label {
   font-size: 14px;
 }
 
-input {
+input, textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #bcc9d6;
   border-radius: 7px;
   font-size: 16px;
+  font-family: inherit;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
 }
 
 button {
@@ -91,15 +99,17 @@ button:disabled {
   cursor: wait;
 }
 
-.primary {
-  background: var(--blue);
-  color: white;
-}
-
+.primary { background: var(--blue); color: white; }
 .secondary {
   background: white;
   color: var(--navy);
   border: 1px solid var(--border);
+}
+.success { background: var(--green); color: white; }
+.danger {
+  background: white;
+  color: var(--red);
+  border: 1px solid #e6b8b5;
 }
 
 .actions {
@@ -109,9 +119,10 @@ button:disabled {
   margin-top: 18px;
 }
 
-#status {
+#status, #mensagem, #statusExames {
   line-height: 1.5;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .muted {
@@ -170,9 +181,32 @@ th { background: #f7f9fc; }
   line-height: 1.5;
 }
 
-#mensagem, #status {
+.exam-item {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 16px;
+  margin-top: 12px;
   overflow-wrap: anywhere;
 }
+
+.exam-item h3 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+
+.exam-item p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 7px 0;
+}
+
+.exam-status {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.status-publicado { color: var(--green); }
+.status-rascunho { color: var(--muted); }
 
 [hidden] { display: none !important; }
 
@@ -183,10 +217,7 @@ th { background: #f7f9fc; }
   }
 
   .card { padding: 17px; }
-
-  .detail-grid {
-    grid-template-columns: 1fr;
-  }
+  .detail-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -204,50 +235,31 @@ th { background: #f7f9fc; }
 </header>
 
 <main>
-
   <section class="card">
     <h2>Acesso à equipe</h2>
     <p id="status">Verificando autenticação...</p>
   </section>
 
   <div id="painel" hidden>
-
     <section class="card">
       <h2>Cadastrar paciente</h2>
-
       <p class="muted">
-        Cadastre somente os dados necessários.
-        Este formulário não cria uma conta de login para o paciente.
+        Este formulário cadastra o paciente, mas não cria uma conta de acesso ao portal.
       </p>
 
       <form id="formPaciente">
-
         <label for="nome">Nome completo</label>
-        <input
-          id="nome"
-          name="nome"
-          maxlength="150"
-          required
-          autocomplete="off"
-          placeholder="Nome do paciente"
-        >
+        <input id="nome" maxlength="150" required
+          autocomplete="off" placeholder="Nome do paciente">
 
         <label for="cpf">CPF</label>
-        <input
-          id="cpf"
-          name="cpf"
-          inputmode="numeric"
-          maxlength="14"
-          required
-          autocomplete="off"
-          placeholder="000.000.000-00"
-        >
+        <input id="cpf" inputmode="numeric" maxlength="14"
+          required autocomplete="off" placeholder="000.000.000-00">
 
         <div class="actions">
           <button class="primary" id="salvar" type="submit">
             Cadastrar paciente
           </button>
-
           <button class="secondary" id="recarregar" type="button">
             Atualizar lista
           </button>
@@ -259,10 +271,7 @@ th { background: #f7f9fc; }
 
     <section class="card" id="secaoLista">
       <h2>Pacientes cadastrados</h2>
-
-      <p class="muted">
-        Clique no nome de um paciente para abrir sua ficha.
-      </p>
+      <p class="muted">Clique no nome para abrir a ficha e gerenciar os exames.</p>
 
       <div class="table-wrap">
         <table>
@@ -273,41 +282,30 @@ th { background: #f7f9fc; }
               <th>Data do cadastro</th>
             </tr>
           </thead>
-
           <tbody id="lista">
-            <tr>
-              <td colspan="3">Carregando...</td>
-            </tr>
+            <tr><td colspan="3">Carregando...</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
     <section class="card" id="detalhesPaciente" hidden>
-
       <h2>Ficha do paciente</h2>
-
-      <p class="muted">
-        Dados cadastrais do paciente selecionado.
-      </p>
+      <p class="muted">Dados cadastrais do paciente selecionado.</p>
 
       <div class="detail-grid">
-
         <div class="detail-item">
           <div class="detail-label">Nome completo</div>
           <div class="detail-value" id="detalheNome"></div>
         </div>
-
         <div class="detail-item">
           <div class="detail-label">CPF</div>
           <div class="detail-value" id="detalheCPF"></div>
         </div>
-
         <div class="detail-item">
           <div class="detail-label">Data do cadastro</div>
           <div class="detail-value" id="detalheData"></div>
         </div>
-
       </div>
 
       <div class="actions">
@@ -318,16 +316,48 @@ th { background: #f7f9fc; }
 
       <hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
 
-      <h2>Exames do paciente</h2>
-
-      <p class="muted" id="avisoExames">
-        A área de exames será conectada na próxima etapa,
-        após confirmarmos a estrutura das tabelas e as permissões
-        do banco de dados.
+      <h2>Adicionar exame</h2>
+      <p class="muted">
+        Formatos permitidos neste formulário: PDF, JPG, PNG e WEBP.
+        Tamanho máximo definido no formulário: 15 MB.
+        O exame é salvo inicialmente como não publicado.
       </p>
 
-    </section>
+      <form id="formExame">
+        <label for="tituloExame">Título do exame</label>
+        <input id="tituloExame" maxlength="150" required
+          placeholder="Ex.: Ecocardiograma">
 
+        <label for="descricaoExame">Descrição (opcional)</label>
+        <textarea id="descricaoExame" maxlength="1000"
+          placeholder="Informações complementares"></textarea>
+
+        <label for="arquivoExame">Arquivo do exame</label>
+        <input id="arquivoExame" type="file"
+          accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
+          required>
+
+        <div class="actions">
+          <button class="primary" id="enviarExame" type="submit">
+            Enviar exame
+          </button>
+        </div>
+      </form>
+
+      <p id="statusExames" role="status"></p>
+
+      <hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
+
+      <h2>Exames cadastrados</h2>
+      <p class="muted">
+        Você pode abrir o arquivo, publicar ou retirar a publicação.
+        A publicação no banco não habilita automaticamente o acesso do paciente ao arquivo.
+      </p>
+
+      <div id="listaExames">
+        <p class="muted">Selecione um paciente para consultar os exames.</p>
+      </div>
+    </section>
   </div>
 </main>
 
@@ -341,6 +371,15 @@ const SUPABASE_URL =
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_13EfTkH1D2I9WaDvShy6zg_d5a_KYhu";
 
+const BUCKET_EXAMES = "exames-clinica";
+const TAMANHO_MAXIMO = 15 * 1024 * 1024;
+const TIPOS_PERMITIDOS = [
+  "application/pdf",
+  "image/jpeg",
+  "image/png",
+  "image/webp"
+];
+
 const supabase = createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
@@ -349,18 +388,22 @@ const supabase = createClient(
 const statusEl = document.getElementById("status");
 const painel = document.getElementById("painel");
 const sair = document.getElementById("sair");
-const form = document.getElementById("formPaciente");
+const formPaciente = document.getElementById("formPaciente");
 const mensagem = document.getElementById("mensagem");
 const lista = document.getElementById("lista");
 const salvar = document.getElementById("salvar");
 const detalhes = document.getElementById("detalhesPaciente");
+const formExame = document.getElementById("formExame");
+const enviarExame = document.getElementById("enviarExame");
+const statusExames = document.getElementById("statusExames");
+const listaExames = document.getElementById("listaExames");
 
 let equipeAutorizada = false;
+let usuarioEquipeId = null;
+let pacienteSelecionado = null;
 
 function formatarCPF(valor) {
-  const n = String(valor ?? "")
-    .replace(/\D/g, "")
-    .slice(0, 11);
+  const n = String(valor ?? "").replace(/\D/g, "").slice(0, 11);
 
   return n
     .replace(/^(\d{3})(\d)/, "$1.$2")
@@ -387,7 +430,6 @@ function validarCPF(cpf) {
 
   let digito = (soma * 10) % 11;
   if (digito === 10) digito = 0;
-
   if (digito !== Number(cpf[9])) return false;
 
   soma = 0;
@@ -406,10 +448,13 @@ function formatarData(valor) {
   if (!valor) return "—";
 
   const data = new Date(valor);
-
   if (Number.isNaN(data.getTime())) return "—";
 
   return data.toLocaleDateString("pt-BR");
+}
+
+function mostrarErro(elemento, texto) {
+  elemento.textContent = texto;
 }
 
 async function verificarAcesso() {
@@ -440,6 +485,7 @@ async function verificarAcesso() {
     }
 
     equipeAutorizada = true;
+    usuarioEquipeId = data.user.id;
 
     statusEl.textContent =
       `Bem-vindo(a), ${perfil.nome}. Perfil: ${perfil.tipo}.`;
@@ -452,7 +498,6 @@ async function verificarAcesso() {
   } catch (error) {
     statusEl.textContent =
       "Não foi possível verificar o acesso. Confira a conexão e tente novamente.";
-
     console.error(error);
   }
 }
@@ -464,34 +509,28 @@ async function carregarPacientes() {
 
   const trCarregando = document.createElement("tr");
   const tdCarregando = document.createElement("td");
-
   tdCarregando.colSpan = 3;
   tdCarregando.textContent = "Carregando pacientes...";
-
   trCarregando.appendChild(tdCarregando);
   lista.appendChild(trCarregando);
 
   const { data, error } = await supabase
     .from("pacientes")
-    .select("nome, cpf, criado_em")
+    .select("id, usuario_id, nome, cpf, criado_em")
     .order("criado_em", { ascending: false })
     .limit(200);
 
   if (error) {
     lista.replaceChildren();
-
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-
     td.colSpan = 3;
     td.textContent = "Não foi possível carregar a lista.";
-
     tr.appendChild(td);
     lista.appendChild(tr);
 
     mensagem.textContent =
       "Erro ao carregar pacientes. Confira as permissões do banco.";
-
     console.error(error);
     return;
   }
@@ -501,10 +540,8 @@ async function carregarPacientes() {
   if (!data || data.length === 0) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
-
     td.colSpan = 3;
     td.textContent = "Nenhum paciente cadastrado.";
-
     tr.appendChild(td);
     lista.appendChild(tr);
     return;
@@ -515,7 +552,6 @@ async function carregarPacientes() {
     const tdNome = document.createElement("td");
     const tdCPF = document.createElement("td");
     const tdData = document.createElement("td");
-
     const botaoNome = document.createElement("button");
 
     botaoNome.type = "button";
@@ -523,9 +559,7 @@ async function carregarPacientes() {
     botaoNome.textContent = paciente.nome;
     botaoNome.setAttribute("aria-label", "Abrir ficha do paciente");
 
-    botaoNome.addEventListener("click", () => {
-      abrirFichaPaciente(paciente);
-    });
+    botaoNome.addEventListener("click", () => abrirFichaPaciente(paciente));
 
     tdNome.appendChild(botaoNome);
     tdCPF.textContent = formatarCPF(paciente.cpf);
@@ -536,8 +570,10 @@ async function carregarPacientes() {
   }
 }
 
-function abrirFichaPaciente(paciente) {
+async function abrirFichaPaciente(paciente) {
   if (!equipeAutorizada || !paciente) return;
+
+  pacienteSelecionado = paciente;
 
   document.getElementById("detalheNome").textContent =
     paciente.nome || "—";
@@ -549,6 +585,10 @@ function abrirFichaPaciente(paciente) {
     formatarData(paciente.criado_em);
 
   detalhes.hidden = false;
+  formExame.reset();
+  statusExames.textContent = "";
+
+  await carregarExames(paciente.id);
 
   detalhes.scrollIntoView({
     behavior: "smooth",
@@ -558,6 +598,7 @@ function abrirFichaPaciente(paciente) {
 
 document.getElementById("voltarLista").addEventListener("click", () => {
   detalhes.hidden = true;
+  pacienteSelecionado = null;
 
   document.getElementById("secaoLista").scrollIntoView({
     behavior: "smooth",
@@ -565,7 +606,7 @@ document.getElementById("voltarLista").addEventListener("click", () => {
   });
 });
 
-form.addEventListener("submit", async e => {
+formPaciente.addEventListener("submit", async e => {
   e.preventDefault();
   mensagem.textContent = "";
 
@@ -575,13 +616,10 @@ form.addEventListener("submit", async e => {
   }
 
   const nome = document.getElementById("nome").value.trim();
-
-  const cpf = document.getElementById("cpf").value
-    .replace(/\D/g, "");
+  const cpf = document.getElementById("cpf").value.replace(/\D/g, "");
 
   if (nome.length < 3) {
-    mensagem.textContent =
-      "Informe o nome completo do paciente.";
+    mensagem.textContent = "Informe o nome completo do paciente.";
     return;
   }
 
@@ -597,11 +635,7 @@ form.addEventListener("submit", async e => {
   try {
     const { error } = await supabase
       .from("pacientes")
-      .insert({
-        nome,
-        cpf,
-        usuario_id: null
-      });
+      .insert({ nome, cpf, usuario_id: null });
 
     if (error) {
       mensagem.textContent = error.code === "23505"
@@ -612,17 +646,12 @@ form.addEventListener("submit", async e => {
       return;
     }
 
-    form.reset();
-
-    mensagem.textContent =
-      "Paciente cadastrado com sucesso.";
-
+    formPaciente.reset();
+    mensagem.textContent = "Paciente cadastrado com sucesso.";
     await carregarPacientes();
 
   } catch (error) {
-    mensagem.textContent =
-      "Erro de conexão ao cadastrar o paciente.";
-
+    mensagem.textContent = "Erro de conexão ao cadastrar o paciente.";
     console.error(error);
 
   } finally {
@@ -630,6 +659,284 @@ form.addEventListener("submit", async e => {
     salvar.textContent = "Cadastrar paciente";
   }
 });
+
+async function carregarExames(pacienteId) {
+  if (!equipeAutorizada || !pacienteSelecionado ||
+      pacienteSelecionado.id !== pacienteId) return;
+
+  listaExames.replaceChildren();
+
+  const carregando = document.createElement("p");
+  carregando.className = "muted";
+  carregando.textContent = "Carregando exames...";
+  listaExames.appendChild(carregando);
+
+  const { data, error } = await supabase
+    .from("exames")
+    .select("id, paciente_id, titulo, descricao, caminho_arquivo, publicado, publicado_por, criado_em")
+    .eq("paciente_id", pacienteId)
+    .order("criado_em", { ascending: false });
+
+  if (error) {
+    listaExames.replaceChildren();
+    const aviso = document.createElement("p");
+    aviso.className = "muted";
+    aviso.textContent = "Não foi possível carregar os exames.";
+    listaExames.appendChild(aviso);
+    console.error(error);
+    return;
+  }
+
+  listaExames.replaceChildren();
+
+  if (!data || data.length === 0) {
+    const aviso = document.createElement("p");
+    aviso.className = "muted";
+    aviso.textContent = "Este paciente ainda não possui exames cadastrados.";
+    listaExames.appendChild(aviso);
+    return;
+  }
+
+  for (const exame of data) {
+    const item = document.createElement("article");
+    item.className = "exam-item";
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = exame.titulo || "Exame sem título";
+    item.appendChild(titulo);
+
+    if (exame.descricao) {
+      const descricao = document.createElement("p");
+      descricao.textContent = exame.descricao;
+      item.appendChild(descricao);
+    }
+
+    const dataExame = document.createElement("p");
+    dataExame.textContent = "Cadastrado em: " + formatarData(exame.criado_em);
+    item.appendChild(dataExame);
+
+    const status = document.createElement("p");
+    status.className = "exam-status " +
+      (exame.publicado ? "status-publicado" : "status-rascunho");
+    status.textContent = exame.publicado
+      ? "Publicado no cadastro"
+      : "Não publicado";
+    item.appendChild(status);
+
+    const acoes = document.createElement("div");
+    acoes.className = "actions";
+
+    const abrir = document.createElement("button");
+    abrir.type = "button";
+    abrir.className = "secondary";
+    abrir.textContent = "Abrir arquivo";
+    abrir.addEventListener("click", () => abrirArquivo(exame));
+
+    acoes.appendChild(abrir);
+
+    const publicar = document.createElement("button");
+    publicar.type = "button";
+    publicar.className = exame.publicado ? "danger" : "success";
+    publicar.textContent = exame.publicado
+      ? "Retirar publicação"
+      : "Publicar exame";
+
+    publicar.addEventListener("click", () => alterarPublicacao(exame));
+    acoes.appendChild(publicar);
+
+    item.appendChild(acoes);
+    listaExames.appendChild(item);
+  }
+}
+
+formExame.addEventListener("submit", async e => {
+  e.preventDefault();
+  statusExames.textContent = "";
+
+  if (!equipeAutorizada || !pacienteSelecionado) {
+    statusExames.textContent = "Selecione um paciente antes de enviar o exame.";
+    return;
+  }
+
+  const titulo = document.getElementById("tituloExame").value.trim();
+  const descricao = document.getElementById("descricaoExame").value.trim();
+  const arquivo = document.getElementById("arquivoExame").files[0];
+
+  if (!titulo) {
+    statusExames.textContent = "Informe o título do exame.";
+    return;
+  }
+
+  if (!arquivo) {
+    statusExames.textContent = "Selecione o arquivo do exame.";
+    return;
+  }
+
+  if (arquivo.size <= 0 || arquivo.size > TAMANHO_MAXIMO) {
+    statusExames.textContent =
+      "O arquivo está vazio ou ultrapassa o limite de 15 MB.";
+    return;
+  }
+
+  if (!TIPOS_PERMITIDOS.includes(arquivo.type)) {
+    statusExames.textContent =
+      "Formato não permitido. Selecione um PDF, JPG, PNG ou WEBP.";
+    return;
+  }
+
+  enviarExame.disabled = true;
+  enviarExame.textContent = "Enviando arquivo...";
+
+  let caminhoArquivo = null;
+
+  try {
+    const extensaoOriginal = arquivo.name.split(".").pop().toLowerCase();
+    const extensoesPermitidas = ["pdf", "jpg", "jpeg", "png", "webp"];
+
+    if (!extensoesPermitidas.includes(extensaoOriginal)) {
+      statusExames.textContent = "A extensão do arquivo não é permitida.";
+      return;
+    }
+
+    // A pasta inicial usa o ID do cadastro do paciente.
+    // O acesso aos arquivos do paciente ainda será configurado separadamente.
+    const nomeSeguro = arquivo.name
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9._-]/g, "_")
+      .slice(-100);
+
+    caminhoArquivo =
+      `${pacienteSelecionado.id}/${crypto.randomUUID()}-${nomeSeguro}`;
+
+    const { error: erroUpload } = await supabase.storage
+      .from(BUCKET_EXAMES)
+      .upload(caminhoArquivo, arquivo, {
+        contentType: arquivo.type,
+        upsert: false
+      });
+
+    if (erroUpload) {
+      console.error(erroUpload);
+      statusExames.textContent =
+        "Não foi possível enviar o arquivo. Verifique as permissões e os limites do bucket.";
+      return;
+    }
+
+    statusExames.textContent = "Arquivo enviado. Salvando cadastro do exame...";
+
+    const { error: erroCadastro } = await supabase
+      .from("exames")
+      .insert({
+        paciente_id: pacienteSelecionado.id,
+        titulo,
+        descricao: descricao || null,
+        caminho_arquivo: caminhoArquivo,
+        publicado: false,
+        publicado_por: null
+      });
+
+    if (erroCadastro) {
+      console.error(erroCadastro);
+
+      // Tenta remover o arquivo se não foi possível cadastrar o exame.
+      const { error: erroRemocao } = await supabase.storage
+        .from(BUCKET_EXAMES)
+        .remove([caminhoArquivo]);
+
+      if (erroRemocao) {
+        console.error("Não foi possível remover o arquivo órfão:", erroRemocao);
+      }
+
+      statusExames.textContent =
+        "O arquivo foi enviado, mas o cadastro do exame falhou. Confira as permissões da tabela.";
+      return;
+    }
+
+    formExame.reset();
+    statusExames.textContent =
+      "Exame cadastrado como não publicado.";
+
+    await carregarExames(pacienteSelecionado.id);
+
+  } catch (error) {
+    console.error(error);
+    statusExames.textContent =
+      "Ocorreu um erro ao enviar o exame. Confira a conexão e tente novamente.";
+
+  } finally {
+    enviarExame.disabled = false;
+    enviarExame.textContent = "Enviar exame";
+  }
+});
+
+async function abrirArquivo(exame) {
+  if (!equipeAutorizada || !exame?.caminho_arquivo) return;
+
+  try {
+    const { data, error } = await supabase.storage
+      .from(BUCKET_EXAMES)
+      .createSignedUrl(exame.caminho_arquivo, 60);
+
+    if (error || !data?.signedUrl) {
+      console.error(error);
+      statusExames.textContent =
+        "Não foi possível abrir o arquivo. Verifique as permissões do Storage.";
+      return;
+    }
+
+    const novaAba = window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+
+    if (!novaAba) {
+      statusExames.textContent =
+        "O navegador bloqueou a nova aba. Permita pop-ups para este site e tente novamente.";
+    }
+  } catch (error) {
+    console.error(error);
+    statusExames.textContent = "Erro ao tentar abrir o arquivo.";
+  }
+}
+
+async function alterarPublicacao(exame) {
+  if (!equipeAutorizada || !pacienteSelecionado) return;
+
+  const novoEstado = !exame.publicado;
+  const confirmacao = novoEstado
+    ? "Deseja marcar este exame como publicado?"
+    : "Deseja retirar a publicação deste exame?";
+
+  if (!window.confirm(confirmacao)) return;
+
+  statusExames.textContent = "Atualizando publicação...";
+
+  try {
+    const { error } = await supabase
+      .from("exames")
+      .update({
+        publicado: novoEstado,
+        publicado_por: novoEstado ? usuarioEquipeId : null
+      })
+      .eq("id", exame.id)
+      .eq("paciente_id", pacienteSelecionado.id);
+
+    if (error) {
+      console.error(error);
+      statusExames.textContent =
+        "Não foi possível alterar a publicação. Verifique as permissões da tabela.";
+      return;
+    }
+
+    statusExames.textContent = novoEstado
+      ? "Exame marcado como publicado no cadastro."
+      : "Publicação retirada.";
+
+    await carregarExames(pacienteSelecionado.id);
+
+  } catch (error) {
+    console.error(error);
+    statusExames.textContent = "Erro ao atualizar a publicação.";
+  }
+}
 
 document.getElementById("recarregar").addEventListener("click", () => {
   carregarPacientes();
