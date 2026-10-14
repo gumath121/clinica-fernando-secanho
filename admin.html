@@ -919,12 +919,24 @@ async function alterarPublicacao(exame) {
       .eq("id", exame.id)
       .eq("paciente_id", pacienteSelecionado.id);
 
-    if (error) {
-      console.error(error);
-      statusExames.textContent =
-        "Não foi possível alterar a publicação. Verifique as permissões da tabela.";
-      return;
-    }
+
+if (error) {
+  console.error("Erro ao publicar exame:", error);
+
+  statusExames.textContent =
+    "Erro ao publicar: " +
+    (error.message || "Erro desconhecido") +
+    (error.code ? " (código: " + error.code + ")" : "");
+
+  alert(
+    "Erro ao publicar exame:\n" +
+    (error.message || "Erro desconhecido") +
+    (error.code ? "\nCódigo: " + error.code : "")
+  );
+
+  return;
+}
+
 
     statusExames.textContent = novoEstado
       ? "Exame marcado como publicado no cadastro."
