@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -31,7 +31,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 115px;
+      scroll-padding-top: 95px;
     }
 
     body {
@@ -62,7 +62,7 @@
       margin-inline: auto;
     }
 
-    /* CABEÇALHO */
+    /* CABEÇALHO COM LOGO REDUZIDA */
 
     .site-header {
       position: sticky;
@@ -74,14 +74,12 @@
     }
 
     .header-inner {
-      min-height: 125px;
+      min-height: 88px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 30px;
+      gap: 24px;
     }
-
-    /* Logo principal, sem nome duplicado ao lado */
 
     .brand {
       display: flex;
@@ -93,7 +91,7 @@
 
     .brand img {
       display: block;
-      width: 250px;
+      width: 190px;
       max-width: 100%;
       height: auto;
       object-fit: contain;
@@ -105,7 +103,7 @@
       align-items: center;
       justify-content: flex-end;
       flex-wrap: wrap;
-      gap: 24px;
+      gap: 20px;
       font-size: 13px;
       font-weight: 600;
     }
@@ -689,12 +687,12 @@
       }
 
       .header-inner {
-        min-height: 105px;
-        gap: 18px;
+        min-height: 78px;
+        gap: 16px;
       }
 
       .brand img {
-        width: 200px;
+        width: 165px;
       }
 
       .main-nav {
@@ -743,7 +741,7 @@
 
     @media (max-width: 650px) {
       html {
-        scroll-padding-top: 135px;
+        scroll-padding-top: 125px;
       }
 
       .container {
@@ -752,9 +750,9 @@
 
       .header-inner {
         min-height: auto;
-        padding: 12px 0 13px;
+        padding: 7px 0;
         flex-direction: column;
-        gap: 10px;
+        gap: 6px;
       }
 
       .brand {
@@ -764,7 +762,7 @@
       }
 
       .brand img {
-        width: 180px;
+        width: 145px;
         max-width: 80%;
       }
 
@@ -966,7 +964,7 @@
 
     @media (max-width: 380px) {
       .brand img {
-        width: 150px;
+        width: 135px;
       }
 
       .main-nav {
@@ -985,7 +983,6 @@
   <header class="site-header">
     <div class="container header-inner">
 
-      <!-- Logo principal, sem repetir o nome em texto -->
       <a class="brand" href="#inicio" aria-label="Página inicial da clínica">
         <img src="logo.png" alt="Logotipo da Clínica de Cardiologia">
       </a>
