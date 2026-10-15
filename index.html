@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -31,7 +31,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 105px;
+      scroll-padding-top: 115px;
     }
 
     body {
@@ -68,56 +68,44 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, .97);
+      background: rgba(255, 255, 255, .98);
       border-bottom: 1px solid rgba(8, 24, 43, .08);
       backdrop-filter: blur(14px);
     }
 
     .header-inner {
-      min-height: 100px;
+      min-height: 125px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 30px;
     }
 
+    /* Logo principal, sem nome duplicado ao lado */
+
     .brand {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 15px;
+      flex: 0 1 auto;
       min-width: 0;
+      text-decoration: none;
     }
 
     .brand img {
-      width: 76px;
-      height: 76px;
+      display: block;
+      width: 250px;
+      max-width: 100%;
+      height: auto;
       object-fit: contain;
       flex-shrink: 0;
-    }
-
-    .brand-name {
-      display: block;
-      color: var(--navy);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.3;
-      letter-spacing: -.3px;
-    }
-
-    .brand-subtitle {
-      display: block;
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
     }
 
     .main-nav {
       display: flex;
       align-items: center;
-      gap: 27px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 24px;
       font-size: 13px;
       font-weight: 600;
     }
@@ -179,11 +167,7 @@
       background: rgba(255,255,255,.12);
     }
 
-    /* BANNER PRINCIPAL
-       O banner.jpg é a imagem principal da página.
-       O fundo navy e as camadas escuras valorizam a imagem
-       e permitem que o texto seja lido com conforto.
-    */
+    /* BANNER PRINCIPAL */
 
     .hero {
       position: relative;
@@ -681,7 +665,7 @@
       font-size: 10px;
     }
 
-    /* ACESSIBILIDADE E MOVIMENTO */
+    /* ACESSIBILIDADE */
 
     a:focus-visible {
       outline: 3px solid #d65a66;
@@ -697,7 +681,7 @@
       }
     }
 
-    /* TABLETS */
+    /* TABLETS E TELAS MENORES */
 
     @media (max-width: 950px) {
       .container {
@@ -705,26 +689,16 @@
       }
 
       .header-inner {
-        min-height: 88px;
+        min-height: 105px;
         gap: 18px;
       }
 
       .brand img {
-        width: 64px;
-        height: 64px;
-      }
-
-      .brand-name {
-        font-size: 14px;
-      }
-
-      .brand-subtitle {
-        font-size: 9px;
-        letter-spacing: 1.4px;
+        width: 200px;
       }
 
       .main-nav {
-        gap: 15px;
+        gap: 13px;
         font-size: 12px;
       }
 
@@ -769,7 +743,7 @@
 
     @media (max-width: 650px) {
       html {
-        scroll-padding-top: 145px;
+        scroll-padding-top: 135px;
       }
 
       .container {
@@ -778,33 +752,27 @@
 
       .header-inner {
         min-height: auto;
-        padding: 10px 0 12px;
+        padding: 12px 0 13px;
         flex-direction: column;
-        gap: 12px;
+        gap: 10px;
       }
 
       .brand {
-        align-self: flex-start;
-        gap: 11px;
+        align-self: center;
+        justify-content: center;
+        width: 100%;
       }
 
       .brand img {
-        width: 55px;
-        height: 55px;
-      }
-
-      .brand-name {
-        font-size: 13px;
-      }
-
-      .brand-subtitle {
-        font-size: 8px;
+        width: 180px;
+        max-width: 80%;
       }
 
       .main-nav {
         width: 100%;
-        justify-content: space-between;
-        gap: 8px;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 7px 15px;
         font-size: 11px;
       }
 
@@ -993,18 +961,33 @@
         gap: 8px;
       }
     }
+
+    /* CELULARES MUITO ESTREITOS */
+
+    @media (max-width: 380px) {
+      .brand img {
+        width: 150px;
+      }
+
+      .main-nav {
+        gap: 6px 10px;
+        font-size: 10px;
+      }
+
+      .main-nav .button {
+        padding-inline: 8px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <header class="site-header">
     <div class="container header-inner">
+
+      <!-- Logo principal, sem repetir o nome em texto -->
       <a class="brand" href="#inicio" aria-label="Página inicial da clínica">
-        <img src="logo.png" alt="Logotipo da Clínica Fernando José Secanho">
-        <span>
-          <span class="brand-name">Clínica de Cardiologia<br>Fernando José Secanho</span>
-          <span class="brand-subtitle">Cuidado e atenção ao coração</span>
-        </span>
+        <img src="logo.png" alt="Logotipo da Clínica de Cardiologia">
       </a>
 
       <nav class="main-nav" aria-label="Navegação principal">
@@ -1014,6 +997,7 @@
         <a href="#contato">Contato</a>
         <a class="button button-red" href="portal.html">Portal do paciente</a>
       </nav>
+
     </div>
   </header>
 
@@ -1130,7 +1114,7 @@
         <div class="about-photo">
           <img
             src="banner.jpg"
-            alt="Imagem principal da Clínica de Cardiologia Fernando José Secanho"
+            alt="Imagem principal da clínica de cardiologia"
             loading="lazy"
           >
         </div>
